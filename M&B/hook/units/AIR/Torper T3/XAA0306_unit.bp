@@ -97,7 +97,7 @@ UnitBlueprint {
         'PRODUCTFA',
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
-        'RESEARCHLOCKED',
+        
         'AEON',
         'MOBILE',
         'AIR',

@@ -98,7 +98,7 @@ UnitBlueprint {
         'SELECTABLE',        
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'RESEARCHLOCKED',
+        
         'UEF',
         'MOBILE',
         'AIR',

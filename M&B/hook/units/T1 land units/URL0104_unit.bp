@@ -52,7 +52,6 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYANTIAIR',
         'OVERLAYDIRECTFIRE',
-        'RESEARCHLOCKED'
     },
     Defense = {
         AirThreatLevel = 0.33,

@@ -103,7 +103,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYSONAR',
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetY = -0.2,
     CollisionOffsetZ = -0.1,

@@ -106,7 +106,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
         'OVERLAYRADAR',
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetZ = 0.2,
     Defense = {

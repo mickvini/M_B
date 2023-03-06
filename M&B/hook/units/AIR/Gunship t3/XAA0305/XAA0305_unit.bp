@@ -100,7 +100,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
         'OVERLAYANTIAIR',
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetY = -0.075,
     Defense = {

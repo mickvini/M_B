@@ -64,7 +64,7 @@ UnitBlueprint {
         'BOT',
         'OVERLAYDIRECTFIRE',
         'OVERLAYDEFENSE',
-		'RESEARCHLOCKED',		
+				
     },
     Defense = {
         AirThreatLevel = 0,

@@ -51,7 +51,7 @@ UnitBlueprint {
         'TANK',
         'OVERLAYANTINAVY',
         'OVERLAYDIRECTFIRE',
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetY = 0,
     Defense = {

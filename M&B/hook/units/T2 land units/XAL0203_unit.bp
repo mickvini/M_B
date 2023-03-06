@@ -52,7 +52,7 @@ UnitBlueprint {
         'HOVER',
         'TANK',
         'OVERLAYDIRECTFIRE',
-		'RESEARCHLOCKED',		
+				
     },
     Defense = {
         AirThreatLevel = 0,

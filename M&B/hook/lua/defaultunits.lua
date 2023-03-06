@@ -3,93 +3,100 @@
 --------------------------------------------------------------------------------
 local Game = import('/lua/game.lua')
 --------------------------------------------------------------------------------
-local counters = {
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-}
-local flags = {
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
-	{ 0, 0, 0, 0, 0, },
+
+local oldunit = MobileUnit
+local MK = {
+    { 0, 0, 0, 0, 0, },
+    { 0, 0, 0, 0, 0, },
+    { 0, 0, 0, 0, 0, },
+    { 0, 0, 0, 0, 0, },
+    { 0, 0, 0, 0, 0, },
+    { 0, 0, 0, 0, 0, },
+    { 0, 0, 0, 0, 0, },
+    { 0, 0, 0, 0, 0, },
 }
 
-countingResearchsToUnlockTECH = function(unit, army)
-	local tier1Generators = {'ueb1101', 'uab1101', 'urb1101', 'xsb1101'}
-	local tier2Generators = {'ueb1201', 'uab1201', 'urb1201', 'xsb1201'}
-    local tier12Generators = {'seb1201', 'sab1201', 'srb1201', 'ssb1201'}
-    local tier3Generators = {'ueb1301', 'uab1301', 'urb1301', 'xsb1301'}
-    local tier1LandFactory = {'urb0101', 'ueb0101', 'uab0101', 'xsb0101'}   	
-    local unitBp = unit:GetBlueprint()
-    if counters[army][1] >=  0 and table.find(unitBp.Categories, 'TECH1') then
-		for id = 1,4 do
-			if tier1Generators[id] == unitBp.ResearchId then
-				counters[army][1] = counters[army][1] + 1				 
-                break
-            elseif unitBp.ResearchId == tier1LandFactory[id] then
-                counters[army][1] = counters[army][1] + 1     
-                break            
-            end			
-		end
-        if counters[army][1] > 0 and flags[army][1] == 0 then
-            LOG("MK0"..unit.MK)
-            RemoveBuildRestriction(army, categories[string.upper(unitBp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN * categories.TECH1)
-            unit.MK = unit.MK + 1 --up mark of unit initialize Unit check and update his blueprint
-            LOG("MK1"..unit.MK)
-            unit:SetMarkLevel()
-            flags[army][1] = 1
-            return        
+SetMarkLevel = function(self, zeroMK)
+        LOG(self)      
+        local bp = self:GetBlueprint()  
+        LOG(bp)      
+        --Check for unit buffs
+        
+            -- Generate a buff based on the data paseed in        
+        local unitz = GetUnitById(bp.BlueprintId)
+        LOG('Unit:'.. unitz:GetUnitId())
+        LOG('Self:'..self:GetUnitId())
+        if bp then
+           Buff.ApplyBuff(self , 'VeterancyHealth5' )                       
         end
+        LOG(self:GetBlueprint().Defense.Health)        
     end
-    if counters[army][2] >= 0 and table.find(unitBp.Categories, 'TECH1') then
-        for id = 1,4 do
-            if tier12Generators[id] == unitBp.ResearchId then
-                counters[army][2] = counters[army][2] + 1 
-                break            
+
+LandUnit = Class(MobileUnit) {
+    OnStopBeingBuilt = function(self, builder, layer)
+        MobileUnit.OnStopBeingBuilt(self, builder, layer)
+        local army = self:GetArmy()
+        local bp = self:GetBlueprint()
+        LOG(bp)
+        LOG(army)
+        LOG(MK[army][1])
+        if MK[army][1] >= 1 then            
+                SetMarkLevel(self, MK[army][1])
+        end
+    end,
+    
+}
+
+WalkingLandUnit = Class(MobileUnit) {
+    WalkingAnim = nil,
+    WalkingAnimRate = 1,
+    IdleAnim = false,
+    IdleAnimRate = 1,
+    DeathAnim = false,
+    DisabledBones = {},
+
+    OnMotionHorzEventChange = function( self, new, old )
+        MobileUnit.OnMotionHorzEventChange(self, new, old)
+        
+        if ( old == 'Stopped' ) then
+            if (not self.Animator) then
+                self.Animator = CreateAnimator(self, true)
+            end
+            local bpDisplay = self:GetBlueprint().Display
+            if bpDisplay.AnimationWalk then
+                self.Animator:PlayAnim(bpDisplay.AnimationWalk, true)
+                self.Animator:SetRate(bpDisplay.AnimationWalkRate or 1)
+            end
+        elseif ( new == 'Stopped' ) then
+            # only keep the animator around if we are dying and playing a death anim
+            # or if we have an idle anim
+            if(self.IdleAnim and not self:IsDead()) then
+                self.Animator:PlayAnim(self.IdleAnim, true)
+            elseif(not self.DeathAnim or not self:IsDead()) then
+                self.Animator:Destroy()
+                self.Animator = false
             end
         end
-        if counters[army][2] > 0 and flags[army][2] == 0 then
-            RemoveBuildRestriction(army, categories[string.upper(unitBp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN * categories.TECH2 - categories.TECH1)
-            flags[army][2] = 1
-            return        
-        end   
-    end                                               
-	if counters[army][3] >= 0 and table.find(unitBp.Categories, 'TECH2') then
-        for id = 1,4 do
-            if tier2Generators[id] == unitBp.ResearchId then
-                counters[army][3] = counters[army][3] + 1 
-                break            
-            end
+    end,
+    OnStopBeingBuilt = function(self, builder, layer)
+        MobileUnit.OnStopBeingBuilt(self, builder, layer)
+        local army = self:GetArmy()
+        local bp = self:GetBlueprint()
+        LOG(bp)
+        LOG(army)
+        LOG(MK[army][1])
+        if MK[army][1] >= 1 then           
+            SetMarkLevel(self, MK[army][1])
+            
         end
-        if counters[army][3] > 0 and flags[army][3] == 0 then
-            RemoveBuildRestriction(army, categories[string.upper(unitBp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN * categories.TECH3 - categories.TECH2)
-            flags[army][3] = 1
-            return        
-        end   
-    end 
-    if counters[army][4] >= 0 and table.find(unitBp.Categories, 'TECH3') then
-        for id = 1,4 do
-            if tier3Generators[id] == unitBp.ResearchId then
-                counters[army][4] = counters[army][4] + 1
-                break             
-            end
-        end
-        if counters[army][4] > 0 and flags[army][4] == 0 then
-            RemoveBuildRestriction(army, categories[string.upper(unitBp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN * categories.EXPERIMENTAL)
-            flags[army][4] = 1
-            return         
-        end      
-    end			
+    end,
+}
+
+countingResearchsToUnlockTECH = function(unit, army)        
+    local unitBp = unit:GetBlueprint()
+    MK[army][1] = MK[army][1]+1
+    LOG(army)
+    LOG(MK[army][1])              
 end
 
 ResearchItem = Class(DummyUnit) {
@@ -100,40 +107,41 @@ ResearchItem = Class(DummyUnit) {
         AddBuildRestriction(self:GetArmy(), categories[bp.BlueprintId] )                               
     end,
 
-    OnStopBeingBuilt = function(self,builder,layer)
-        local bp = self.BpId and __blueprints[self.BpId] or self:GetBlueprint()
+    OnStopBeingBuilt = function(self, builder, layer)
+        local bp = self:GetBlueprint()
         local army = self:GetArmy()
-        local factionCat = categories[string.upper(bp.General.FactionName or 'SELECTABLE')]
-        --Enable what we were supposed to allow.        
-        if bp.ResearchId == string.lower(bp.ResearchId) then --This wont work for any units without letters in the ID.\          
-            if self:CheckBuildRestrictionsAllow(bp.ResearchId) then            	
-                RemoveBuildRestriction(army, categories[bp.ResearchId] ) 
-                countingResearchsToUnlockTECH(self, army)             
+        -- Enable what we were supposed to allow.
+        if bp.ResearchId == string.lower(bp.ResearchId) then -- This won't work for any units without letters in the ID.
+            if self:CheckBuildRestrictionsAllow(bp.ResearchId) then
+                RemoveBuildRestriction(army, categories[bp.ResearchId])
             else
-                WARN("Research item for " .. bp.ResearchId .. " was just completed, however lobby restrictions forbid it. Item shouldn't have been researchable.")
-            end         
-                --RemoveBuildRestriction(army, categories[bp.ResearchId] * factionCat - categories.RESEARCHLOCKED - categories[bp.BlueprintId] - (self:BuildRestrictionCategories()) )                  
-        elseif bp.ResearchId == 'RESEARCHLOCKEDTECH1' then
-                    RemoveBuildRestriction(army, categories[bp.ResearchId] * factionCat - categories.TECH2 - categories.RESEARCHLOCKED - categories[bp.BlueprintId] )
-        elseif bp.ResearchId == 'TECH2' then
-                    RemoveBuildRestriction(army, categories[bp.ResearchId] * factionCat - categories.TECH1 - categories.RESEARCHLOCKED - categories[bp.BlueprintId] )
-        elseif bp.ResearchId == 'TECH3' then
-                    RemoveBuildRestriction(army, categories.TECH3 * factionCat - categories.RESEARCHLOCKED - categories[bp.BlueprintId])
-        elseif bp.ResearchId == 'TECH4' then
-                    RemoveBuildRestriction(army, categories.TECH4 * factionCat + categories.EXPERIMENTAL * factionCat  - categories.RESEARCHLOCKED - categories[bp.BlueprintId])
-        elseif bp.ResearchId == 'EXPERIMENTAL' then
-                    RemoveBuildRestriction(army, categories.TECH4 * factionCat + categories.EXPERIMENTAL * factionCat - categories.EXPERIMENTAL * categories.CONSTRUCTIONSORTDOWN - categories.RESEARCHLOCKED - categories[bp.BlueprintId] )
+                WARN("R&D: Research item for " .. bp.ResearchId .. " was just completed, however lobby restrictions forbid it. Item shouldn't have been researchable.")
+            end
+        else -- else we are a category, not a unitID             
+            -- Unlock the next tech research as well
+            if bp.ResearchId == 'RESEARCHLOCKEDTECH1' then
+                RemoveBuildRestriction(self:GetArmy(), categories.TECH2 * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
+            elseif bp.ResearchId == 'TECH2' then
+                RemoveBuildRestriction(self:GetArmy(), categories.TECH3 * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
+            elseif bp.ResearchId == 'TECH3' then
+                RemoveBuildRestriction(self:GetArmy(), categories.EXPERIMENTAL * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
+            elseif bp.ResearchId == 'MK1' then
+                countingResearchsToUnlockTECH(self,army)
+            elseif bp.ResearchId == 'MK2' then
+                countingResearchsToUnlockTECH(self,army)
+            else
+                RemoveBuildRestriction(army, 
+                (categories[bp.ResearchId] * -- E.G. TECH2
+                categories[string.upper(bp.General.FactionName or 'SELECTABLE')]) - -- For this army's faction only
+                categories.RESEARCHLOCKED - categories[bp.BlueprintId] - (self:BuildRestrictionCategories()))
+            end
         end
-    
 
-        --Tell the manager this is done if we'reё an AI and presumably have a manager.
-        local AIBrain = self:GetAIBrain()
-        if AIBrain.BrainType ~= 'Human' and AIBrain.BrewRND then
-            AIBrain.BrewRND.MarkResearchComplete(AIBrain, bp.BlueprintId)
-        end
+        -- Tell the manager this is done if we're an AI and presumably have a manager.
+       
 
-        --Before the rest, because the rest is Destroy(self)
-        DummyUnit.OnStopBeingBuilt(self,builder,layer)
+        -- Before the rest, because the rest is Destroy(self)
+        DummyUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 
     CheckBuildRestrictionsAllow = function(self, WorkID)

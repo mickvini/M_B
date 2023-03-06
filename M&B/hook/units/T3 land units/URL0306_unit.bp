@@ -40,7 +40,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYCOUNTERINTEL',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         AirThreatLevel = 0,

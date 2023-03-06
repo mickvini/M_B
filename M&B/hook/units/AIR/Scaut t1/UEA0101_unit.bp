@@ -86,7 +86,7 @@ UnitBlueprint {
         'SCOUT',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'RESEARCHLOCKED',		
+				
     },
     Defense = {
         AirThreatLevel = 0.1,

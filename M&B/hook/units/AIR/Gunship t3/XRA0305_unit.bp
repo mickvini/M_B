@@ -99,7 +99,7 @@ UnitBlueprint {
         'OVERLAYANTIAIR',
         'OVERLAYCOUNTERINTEL',
         'OVERLAYDIRECTFIRE',
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetZ = 0,
     Defense = {

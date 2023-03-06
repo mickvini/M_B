@@ -49,7 +49,7 @@ UnitBlueprint {
         'BOT',
         'OVERLAYDIRECTFIRE',
         'FACTORYSERAPHIMLL',
-		'RESEARCHLOCKED',
+		
 		'RESEARCHLOCKEDTECH1',
     },
     CollisionOffsetZ = 0,

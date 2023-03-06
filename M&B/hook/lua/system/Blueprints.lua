@@ -106,16 +106,16 @@ end
 --------------------------------------------------------------------------------
 function RestrictExistingBlueprints(all_bps)
     local restrict = {        
-        --'ueb1101', 'uab1101', 'urb1101', 'xsb1101', --Tech 1 power generators.
+        'ueb1101',-- 'uab1101', 'urb1101', 'xsb1101', --Tech 1 power generators.
         --'ueb1106', 'uab1106', 'urb1106', 'xsb1106', -- tech 1 mass storage
         --'ueb2106', 'uab2106', 'urb2106', 'xsb2106', -- tech 2 mass storage
         --'ueb3106', 'uab3106', 'urb3106', 'xsb3106', -- tech 3 mass storage
         --'urb0101', 'ueb0101', 'uab0101', 'xsb0101', -- tier 0 land factories  
-        'uab1104', 'ueb1104', 'urb1104', 'xsb1104', -- T2 mass fabs
-        'uab1304', 'ueb1304', 'urb1304', 'xsb1304', -- T3 mass fabs      
+        --'uab1104', 'ueb1104', 'urb1104', 'xsb1104', -- T2 mass fabs
+        --'uab1304', 'ueb1304', 'urb1304', 'xsb1304', -- T3 mass fabs      
         --'ueb1201', 'uab1201', 'urb1201', 'xsb1201',--Tech 2 power generators, slow down tech 2 with the half reactors.
         --'ueb1301', 'uab1301', 'urb1301', 'xsb1301',--Tech 3 power generators, slow down tech 2 with the half reactors.
-        'seb1201', 'sab1201', 'srb1201', 'ssb1201',
+        --'seb1201', 'sab1201', 'srb1201', 'ssb1201',
         --uef vanilla air
         --'uea0101', 'uea0102', 'uea0103', 'uea0204',
         --'uea0203', 'uea0206', 'uea0302', 'uea0304',
@@ -193,18 +193,18 @@ function GenerateResearchItemBPs(all_bps)
         end
     end
 
-    if tablesize > 10 then -- This is to prevent it from regenerating them during disk watch. It could probably be ~= 1, but I wanted to be safe.
+    if tablesize > 10 then
         local techresearch = {
             RESEARCHLOCKEDTECH1 = {
                 techid = 1,
                 BuildIconSortPriority = 0,
                 Economy = {
-                    BuildCostEnergy = 1300,
-                    BuildCostMass = 260,
-                    BuildTime = 256,
+                    BuildCostEnergy = 130,
+                    BuildCostMass = 26,
+                    BuildTime = 26,
                     ResearchMult = 1,
                 },
-                Categories = {'TECH2'},
+                Categories = {'TECH1'},
                 Description = '<LOC srnd9100_desc>Tech Level Research',
             },
             TECH2 = {
@@ -213,7 +213,7 @@ function GenerateResearchItemBPs(all_bps)
                 Economy = {
                     BuildCostEnergy = 8040,
                     BuildCostMass = 960,
-                    BuildTime = 1024,
+                    BuildTime = 960,
                     ResearchMult = 1,
                 },
                 Categories = {'TECH2'},
@@ -225,23 +225,11 @@ function GenerateResearchItemBPs(all_bps)
                 Economy = {
                     BuildCostEnergy = 31500,
                     BuildCostMass = 3640,
-                    BuildTime = 4096,
+                    BuildTime = 3640,
                     ResearchMult = 1,
                 },
                 Categories = {'TECH3'},
                 Description = '<LOC srnd9300_desc>Tech Level Research',
-            },
-            TECH4 = {
-                techid = 5,
-                BuildIconSortPriority = 0,
-                Economy = {
-                    BuildCostEnergy = 3500,
-                    BuildCostMass = 340,
-                    BuildTime = 16384,
-                    ResearchMult = 1,
-                },
-                Categories = {'EXPERIMENTAL'},
-                Description = '<LOC srnd9500_desc>Tech Level Research',
             },
             EXPERIMENTAL = {
                 techid = 4,
@@ -255,32 +243,53 @@ function GenerateResearchItemBPs(all_bps)
                 Categories = {'EXPERIMENTAL'},
                 Description = '<LOC srnd9400_desc>Experimental Tech Level Research',
             },
+            MK1 = {
+                techid = 11,
+                BuildIconSortPriority = 0,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = '<LOC srnd9200_desc>Units Level Research',
+            },
+            MK2 = {
+                techid = 12,
+                BuildIconSortPriority = 0,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = '<LOC srnd9200_desc>Units Level Research',
+            },
         }
         for tech, bp in techresearch do
             for faction, uid in {Aeon = 'sar9', UEF = 'ser9', Cybran = 'srr9', Seraphim = 'ssr9'} do
-                local newid = uid .. bp.techid .. '00'                
+                local newid = uid .. bp.techid .. '00'
                 local id = tech
                 bp.Categories[2] = string.upper(faction)
                 bp.Categories[3] = 'SORTCONSTRUCTION'
-                if tech ~= 'EXPERIMENTAL' then           
+                if tech ~= 'RESEARCHLOCKEDTECH1' then
                     bp.Categories[4] = 'CONSTRUCTIONSORTDOWN'
-                end                
-                if tech == 'RESEARCHLOCKEDTECH1' then               
-                    bp.Categories[5] = 'TECH1'
-                elseif tech == 'TECH4' then
-                    bp.Categories[5] = 'TECH4'
-                end           
-                
-                
+                end
                 if not bp.General then
                     bp.General = {}
                 end
+                if not bp.Display then
+                    bp.Display = {}
+                end
+                bp.Display.IconName = newid
                 bp.General.FactionName = faction
                 RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
                 RNDGiveCategoriesAndDefineCosts(all_bps, newid, bp)
                 all_bps[newid].Display.BuildMeshBlueprint = '/mods/M&B/meshes/tech'..bp.techid..'_mesh'
                 all_bps[newid].Display.MeshBlueprint = '/mods/M&B/meshes/tech'..bp.techid..'_mesh'
-                --LOG(repr(all_bps[newid]))
+                -- LOG(repr(all_bps[newid]))
             end
         end
     end
@@ -353,33 +362,40 @@ function RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
         Source = bp.Source or all_bps.seb9101.Source,
         StrategicIconName = bp.StrategicIconName,
     }
+    if not all_bps[newid].Display.IconName then
+        all_bps[newid].Display.IconName = id
+    end
 end
 
 function RNDGiveCategoriesAndDefineCosts(all_bps, newid, ref)
     local bp = all_bps[newid]
-    for i, v in {'TECH1','TECH2','TECH3','TECH4','EXPERIMENTAL', 'UEF', 'CYBRAN', 'SERAPHIM', 'AEON', 'SORTSTRATEGIC', 'SORTCONSTRUCTION', 'SORTDEFENSE', 'SORTECONOMY', 'SORTINTEL', 'CONSTRUCTIONSORTDOWN', 'RESEARCHLOCKEDTECH1', 'AIR', 'LAND', 'NAVAL'} do
+    local cats = {
+        'TECH1', 'TECH2', 'TECH3', 'EXPERIMENTAL', 'UEF', 'CYBRAN', 'SERAPHIM', 'AEON',
+        'SORTSTRATEGIC', 'SORTCONSTRUCTION', 'SORTDEFENSE', 'SORTECONOMY', 'SORTINTEL',
+        'CONSTRUCTIONSORTDOWN', 'RESEARCHLOCKEDTECH1', 'AIR', 'LAND', 'NAVAL'
+    }
+    for i, v in cats do
         if table.find(ref.Categories, v) then
-            --If the source has the cat, the research item also needs it.
+            -- If the source has the cat, the research item also needs it.
             table.insert(bp.Categories, v)
-            if i < 6 then -- if I is less than 5 we are dealing with T1, T2, T3, or Experimental
-                local CostMults = {1, 1.25, 1.5, 2, 1} --Resource cost multiplier per tech level.
-                local maxOutput = { --Maximum research output of a tech 1
+            if i < 5 then -- if I is less than 5 we are dealing with T1, T2, T3, or Experimental
+                local CostMults = {1, 1.25, 1.5, 1} -- Resource cost multiplier per tech level.
+                local maxOutput = { -- Maximum research output of a tech 1
                     {5, 50},
                     {10, 100},
                     {15, 150},
-                    {17, 170},
                     {20, 200},
                 }
-                --If we haven't got a pre-defined cost multiplier, then we use the defaults defined in CostMults.
-                --Units should only exist in one of the first four cats, so this shouldn't stack, except for mods that dont count Experimental as == Tech 4
+                -- If we haven't got a pre-defined cost multiplier, then we use the defaults defined in CostMults.
+                -- Units should only exist in one of the first four cats, so this shouldn't stack, except for mods that dont count Experimental as == Tech 4
                 if not (ref.Economy.ResearchMultEnergy or ref.Economy.ResearchMult) then
                     bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * CostMults[1]
                 end
                 if not (ref.Economy.ResearchMultMass or ref.Economy.ResearchMult) then
                     bp.Economy.BuildCostMass = bp.Economy.BuildCostMass * CostMults[1]
                 end
-                --Research times based on max cost per second instead.
-                bp.Economy.BuildTime = math.floor(math.max(bp.Economy.BuildCostMass / maxOutput[i][1] * 10, bp.Economy.BuildCostEnergy / maxOutput[i][2] * 10 ))
+                -- Research times based on max cost per second instead.
+                bp.Economy.BuildTime = math.floor(math.max(bp.Economy.BuildCostMass / maxOutput[i][1] * 50, bp.Economy.BuildCostEnergy / maxOutput[i][2] * 50 ))
             end
         end
     end

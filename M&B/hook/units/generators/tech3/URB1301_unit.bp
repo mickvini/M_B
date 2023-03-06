@@ -47,7 +47,7 @@ UnitBlueprint {
         'STRUCTURE',
         'ECONOMIC',
         'TECH3',        
-        'RESEARCHLOCKED',
+        
         'ENERGYPRODUCTION',
         'DRAGBUILD',
         'SIZE16',

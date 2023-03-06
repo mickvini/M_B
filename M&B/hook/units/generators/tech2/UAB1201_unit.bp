@@ -40,14 +40,14 @@ UnitBlueprint {
         'STRUCTURE',
         'ECONOMIC',
         'TECH2',        
-        'RESEARCHLOCKED',
+        
         'ENERGYPRODUCTION',
         'DRAGBUILD',
         'SIZE12',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTECONOMY',	
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetY = 0,
     Defense = {

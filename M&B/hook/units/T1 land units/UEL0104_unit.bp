@@ -50,8 +50,7 @@ UnitBlueprint {
         'ANTIAIR',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYANTIAIR',
-        'RESEARCHLOCKED'	
+        'OVERLAYANTIAIR',        	
     },
     Defense = {
         AirThreatLevel = 0.33,

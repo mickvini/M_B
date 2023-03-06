@@ -97,7 +97,7 @@ UnitBlueprint {
         'BUILTBYTIER1FACTORY',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'RESEARCHLOCKED',
+        
         'AEON',
         'MOBILE',
         'AIR',

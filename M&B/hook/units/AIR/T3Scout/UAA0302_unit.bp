@@ -80,7 +80,7 @@ UnitBlueprint {
         'PRODUCTSC1',
         'SELECTABLE',        
         'BUILTBYTIER3FACTORY',
-        'RESEARCHLOCKED',
+        
         'AEON',
         'MOBILE',
         'AIR',
