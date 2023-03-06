@@ -28,13 +28,15 @@ UnitBlueprint {
         'TECH3',
         'ANTIAIR',
         'VISIBLETORECON',
-        'RECLAIMABLE',		'RESEARCHLOCKED',
+        'RECLAIMABLE',
+		
     },
     Defense = {
         AirThreatLevel = 6,
         ArmorType = 'Normal',
         Health = 2780,
-        MaxHealth = 2780,
+        MaxHealth = 2780,
+
     },
     Description = '<LOC srl0320_desc>Mobile Anti-Air SAM Launcher',
     Display = {
@@ -113,15 +115,19 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.75,
-    Physics = {
+    Physics = {
+
+
         MaxAcceleration = 3.5,
         MaxBrake = 3.5,
         MaxSpeed = 3.5,
         MaxSpeedReverse = 0,
-        MaxSteerForce = 10,
+        MaxSteerForce = 10,
+
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
-        RotateOnSpotThreshold = 1,
+        RotateOnSpotThreshold = 1,
+
         TurnRate = 75,
     },
     SelectionCenterOffsetX = 0,

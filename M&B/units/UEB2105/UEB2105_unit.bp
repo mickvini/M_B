@@ -28,9 +28,9 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
-        'RESEARCHLOCKED',
+        
         'SORTECONOMY',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         ArmorType = 'Structure',

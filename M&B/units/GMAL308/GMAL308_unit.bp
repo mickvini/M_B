@@ -51,7 +51,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
         'OVERLAYINDIRECTFIRE',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         AirThreatLevel = 0,

@@ -57,7 +57,7 @@ UnitBlueprint {
         'BATTLESHIP',
         'OVERLAYRADAR',
         'OVERLAYSONAR',
-        'RESEARCHLOCKED',
+        
     },
     
     CollisionOffsetY = -1,
@@ -155,8 +155,8 @@ UnitBlueprint {
     },
     
     Footprint = {
-        SizeX = 1*2.5,
-        SizeZ = 9*2.5,
+        SizeX = 3,
+        SizeZ = 27,
     },
 	
     General = {

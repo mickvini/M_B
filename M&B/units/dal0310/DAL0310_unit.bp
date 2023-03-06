@@ -51,7 +51,7 @@ UnitBlueprint {
         'HOVER',
         'TANK',
         'OVERLAYDIRECTFIRE',
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetZ = 0.1,
     Defense = {

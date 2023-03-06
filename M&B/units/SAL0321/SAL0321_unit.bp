@@ -73,14 +73,15 @@ UnitBlueprint {
         'SILO',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetZ = 0.05,
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 85,
         Health = 2800,
-        MaxHealth = 2800,
+        MaxHealth = 2800,
+
     },
     Description = '<LOC sel0321_desc>Mobile Strategic Missile Defense',
     Display = {
@@ -161,14 +162,18 @@ UnitBlueprint {
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
     Physics = {
-        BackUpDistance = 4,
+        BackUpDistance = 4,
+
+
         MaxAcceleration = 0.8,
         MaxBrake = 0.8,
         MaxSpeed = 0.8,
         MaxSpeedReverse = 0.8,
-        MaxSteerForce = 5,
+        MaxSteerForce = 5,
+
         MotionType = 'RULEUMT_Land',
-        RotateOnSpot = false,
+        RotateOnSpot = false,
+
         TurnRate = 60,
     },
     SelectionSizeX = 0.8,

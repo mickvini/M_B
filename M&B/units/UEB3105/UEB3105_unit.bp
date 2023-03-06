@@ -27,7 +27,7 @@ UnitBlueprint {
         'ENERGYSTORAGE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
+        
         'SORTECONOMY',
     },
     Defense = {

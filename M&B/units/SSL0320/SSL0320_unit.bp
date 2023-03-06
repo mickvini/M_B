@@ -53,13 +53,16 @@ UnitBlueprint {
         'ANTIMISSILE',
         'HOVER',
         'VISIBLETORECON',
-        'RECLAIMABLE',		'RESEARCHLOCKED',
-    },
+        'RECLAIMABLE',
+		
+    },
+
     Defense = {
         AirThreatLevel = 15,
         ArmorType = 'Normal',
         Health = 4160,
-        MaxHealth = 4160,
+        MaxHealth = 4160,
+
     },
     Description = '<LOC sal0320_desc>Mobile Anti-Air Defense',
     Display = {
@@ -184,7 +187,8 @@ UnitBlueprint {
     LifeBarOffset = 0.696,
     LifeBarSize = 0.96,
     Physics = {
-        BankingSlope = 0.5,
+        BankingSlope = 0.5,
+
         Elevation = 0.25,
         MaxAcceleration = 3.6,
         MaxBrake = 3.6,
@@ -193,12 +197,16 @@ UnitBlueprint {
         MaxSteerForce = 1000,
         MeshExtentsX = 1.32,
         MeshExtentsY = 0.6,
-        MeshExtentsZ = 1.5,
+        MeshExtentsZ = 1.5,
+
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
-        TurnFacingRate = 180,
-        TurnRate = 120,
+        TurnFacingRate = 180,
+
+        TurnRate = 120,
+
+
     },
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.96,

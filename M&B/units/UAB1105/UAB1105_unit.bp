@@ -33,7 +33,7 @@ UnitBlueprint {
         'RECLAIMABLE',
 		'SHOWQUEUE',
         'SORTECONOMY',
-        'RESEARCHLOCKED',
+        
     },
     
     Defense = {

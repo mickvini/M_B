@@ -56,7 +56,7 @@ UnitBlueprint {
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetZ = -0.075,
     Defense = {

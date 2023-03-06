@@ -1,10 +1,5 @@
---------------------------------------------------------------------------------
--- Research item stuff
---------------------------------------------------------------------------------
 local Game = import('/lua/game.lua')
 --------------------------------------------------------------------------------
-
-local oldunit = MobileUnit
 local MK = {
     { 0, 0, 0, 0, 0, },
     { 0, 0, 0, 0, 0, },
@@ -16,87 +11,27 @@ local MK = {
     { 0, 0, 0, 0, 0, },
 }
 
-SetMarkLevel = function(self, zeroMK)
-        LOG(self)      
-        local bp = self:GetBlueprint()  
-        LOG(bp)      
-        --Check for unit buffs
-        
-            -- Generate a buff based on the data paseed in        
-        local unitz = GetUnitById(bp.BlueprintId)
-        LOG('Unit:'.. unitz:GetUnitId())
-        LOG('Self:'..self:GetUnitId())
-        if bp then
-           Buff.ApplyBuff(self , 'VeterancyHealth5' )                       
-        end
-        LOG(self:GetBlueprint().Defense.Health)        
-    end
-
-LandUnit = Class(MobileUnit) {
-    OnStopBeingBuilt = function(self, builder, layer)
-        MobileUnit.OnStopBeingBuilt(self, builder, layer)
-        local army = self:GetArmy()
-        local bp = self:GetBlueprint()
-        LOG(bp)
-        LOG(army)
-        LOG(MK[army][1])
-        if MK[army][1] >= 1 then            
-                SetMarkLevel(self, MK[army][1])
-        end
-    end,
-    
-}
-
-WalkingLandUnit = Class(MobileUnit) {
-    WalkingAnim = nil,
-    WalkingAnimRate = 1,
-    IdleAnim = false,
-    IdleAnimRate = 1,
-    DeathAnim = false,
-    DisabledBones = {},
-
-    OnMotionHorzEventChange = function( self, new, old )
-        MobileUnit.OnMotionHorzEventChange(self, new, old)
-        
-        if ( old == 'Stopped' ) then
-            if (not self.Animator) then
-                self.Animator = CreateAnimator(self, true)
-            end
-            local bpDisplay = self:GetBlueprint().Display
-            if bpDisplay.AnimationWalk then
-                self.Animator:PlayAnim(bpDisplay.AnimationWalk, true)
-                self.Animator:SetRate(bpDisplay.AnimationWalkRate or 1)
-            end
-        elseif ( new == 'Stopped' ) then
-            # only keep the animator around if we are dying and playing a death anim
-            # or if we have an idle anim
-            if(self.IdleAnim and not self:IsDead()) then
-                self.Animator:PlayAnim(self.IdleAnim, true)
-            elseif(not self.DeathAnim or not self:IsDead()) then
-                self.Animator:Destroy()
-                self.Animator = false
-            end
-        end
-    end,
-    OnStopBeingBuilt = function(self, builder, layer)
-        MobileUnit.OnStopBeingBuilt(self, builder, layer)
-        local army = self:GetArmy()
-        local bp = self:GetBlueprint()
-        LOG(bp)
-        LOG(army)
-        LOG(MK[army][1])
-        if MK[army][1] >= 1 then           
-            SetMarkLevel(self, MK[army][1])
-            
-        end
-    end,
-}
-
 countingResearchsToUnlockTECH = function(unit, army)        
     local unitBp = unit:GetBlueprint()
     MK[army][1] = MK[army][1]+1
     LOG(army)
     LOG(MK[army][1])              
+end
+
+SetMarkLevel = function(self, zeroMK)
+    LOG(self)      
+    local bp = self:GetBlueprint()  
+    LOG(bp)      
+    --Check for unit buffs
+    
+         -- Generate a buff based on the data paseed in        
+    local unitz = GetUnitById(bp.BlueprintId)
+    LOG('Unit:'.. unitz:GetUnitId())
+    LOG('Self:'..self:GetUnitId())
+    if bp then
+       Buff.ApplyBuff(self , 'VeterancyHealth5' )                       
+    end
+    LOG(self:GetBlueprint().Defense.Health)        
 end
 
 ResearchItem = Class(DummyUnit) {
@@ -335,3 +270,5 @@ ResearchFactoryUnit = Class(FactoryUnit) {
         end
     end
 }
+
+--Update existing defaultunits classes

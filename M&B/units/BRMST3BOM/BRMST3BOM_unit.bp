@@ -64,7 +64,7 @@ UnitBlueprint {
         'BOMBARDMENT',
         'OVERLAYRADAR',
         'OVERLAYSONAR',
-        'RESEARCHLOCKED',
+        
     },
 	
     CollisionOffsetY = -0.375,

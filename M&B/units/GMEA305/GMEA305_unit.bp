@@ -105,7 +105,7 @@ UnitBlueprint {
         'OVERLAYANTIAIR',
         'OVERLAYANTINAVY',
         'EXPERIMENTAL',
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetY = -0.2,
     CollisionOffsetZ = -0.1,

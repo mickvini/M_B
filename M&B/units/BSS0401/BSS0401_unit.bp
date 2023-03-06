@@ -70,7 +70,7 @@ UnitBlueprint {
         'OVERLAYSONAR',
         'OVERLAYRADAR',
         'OVERLAYDEFENSE',
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetY = -1,
     CollisionOffsetZ = 0,

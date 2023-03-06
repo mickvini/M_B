@@ -27,7 +27,7 @@ UnitBlueprint {
         'MASSSTORAGE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
+        
         'SORTECONOMY',
     },
     Defense = {

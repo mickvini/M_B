@@ -119,7 +119,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetY = 0.1,
     Defense = {

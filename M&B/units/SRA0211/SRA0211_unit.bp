@@ -111,7 +111,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
         'OVERLAYRADAR',
-        'RESEARCHLOCKED',
+        
     },
 
     Defense = {

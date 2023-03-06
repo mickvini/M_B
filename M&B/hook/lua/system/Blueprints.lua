@@ -11,7 +11,7 @@ function ModBlueprints(all_blueprints)
     OldModBlueprints(all_blueprints)
     RNDPrepareScript(all_blueprints.Unit)
     RNDPrepareScriptFORTECH4(all_blueprints.Unit)
-    RestrictExistingBlueprints(all_blueprints.Unit)
+    -- RestrictExistingBlueprints(all_blueprints.Unit)
     RNDDefineNewFactoryBuildCategories(all_blueprints.Unit)
     GenerateResearchItemBPs(all_blueprints.Unit)
 end
@@ -104,62 +104,62 @@ end
 --------------------------------------------------------------------------------
 -- Restrict a few vanilla units
 --------------------------------------------------------------------------------
-function RestrictExistingBlueprints(all_bps)
-    local restrict = {        
-        'ueb1101',-- 'uab1101', 'urb1101', 'xsb1101', --Tech 1 power generators.
-        --'ueb1106', 'uab1106', 'urb1106', 'xsb1106', -- tech 1 mass storage
-        --'ueb2106', 'uab2106', 'urb2106', 'xsb2106', -- tech 2 mass storage
-        --'ueb3106', 'uab3106', 'urb3106', 'xsb3106', -- tech 3 mass storage
-        --'urb0101', 'ueb0101', 'uab0101', 'xsb0101', -- tier 0 land factories  
-        --'uab1104', 'ueb1104', 'urb1104', 'xsb1104', -- T2 mass fabs
-        --'uab1304', 'ueb1304', 'urb1304', 'xsb1304', -- T3 mass fabs      
-        --'ueb1201', 'uab1201', 'urb1201', 'xsb1201',--Tech 2 power generators, slow down tech 2 with the half reactors.
-        --'ueb1301', 'uab1301', 'urb1301', 'xsb1301',--Tech 3 power generators, slow down tech 2 with the half reactors.
-        --'seb1201', 'sab1201', 'srb1201', 'ssb1201',
-        --uef vanilla air
-        --'uea0101', 'uea0102', 'uea0103', 'uea0204',
-        --'uea0203', 'uea0206', 'uea0302', 'uea0304',
-		--'uea0303',
-		--cybran vanilla air
-        --'ura0101', 'ura0102', 'ura0103', 'ura0204',
-        --'ura0203', 'ura0206', 'ura0302', 'ura0304',
-		--'ura0303', 'xra0105',
-		--aeon vanilla air
-		--'uaa0101', 'uaa0102', 'uaa0103', 'uaa0204',
-        --'uaa0203', 'uaa0206', 'uaa0302', 'uaa0304',
-		--'uaa0303', 'xaa0202', 'daa0206', 'xaa0306',
-		--'xaa0305',
-        --seraph vanilla air
-        --'xsa0101', 'xsa0102', 'xsa0103', 'xsa0204',
-        --'xsa0203', 'xsa0206', 'xsa0302', 'xsa0304',
-		--'xsa0303', 
-		--uef vanilla land
-		--'uel0104', 'uel0103',
-		--'uel0202', 'uel0107', 'uel0307', 'uel0111',
-		--'uel0203', 'uel0303', 'uel0305', 'uel0304', 
-		--'uel0308',
-		--cybran vanilla land
-		--'url0104', 'url0103',
-		--'drl0204', 'url0203', 'url0111', 'url0205', 
-		--'xrl0305', 'url0303', 'url0305', 'url0306', 
-		--'url0304',
-		--aeon vanilla land
-		--'ual0107', 'ual0103', 'ual0104', 
-		--'ual0201', 'ual0205', 'xal0203', 'ual0111', 
-		--'ual0204', 'ual0302', 'ual0304', 'ual0310',
-		--'dal0310',
-		-- serphim vanilla land
-		--'xsl0104', 'xsl0201', 'xsl0103',
-		--'xsl0202', 'xsl0203', 'xsl0205', 'xsl0111',
-		--'ssl0222', 'xsl0303', 'xsl0304', 'xsl0307', 
-		--'xsl0305', 'xsl0310a'        
-    }
-    for i, id in restrict do
-        if all_bps[id] then
-            table.insert(all_bps[id].Categories, 'RESEARCHLOCKED')
-        end
-    end
-end
+-- function RestrictExistingBlueprints(all_bps)
+--     local restrict = {        
+--         'zzz6969',-- 'uab1101', 'urb1101', 'xsb1101', --Tech 1 power generators.
+--         --'ueb1106', 'uab1106', 'urb1106', 'xsb1106', -- tech 1 mass storage
+--         --'ueb2106', 'uab2106', 'urb2106', 'xsb2106', -- tech 2 mass storage
+--         --'ueb3106', 'uab3106', 'urb3106', 'xsb3106', -- tech 3 mass storage
+--         --'urb0101', 'ueb0101', 'uab0101', 'xsb0101', -- tier 0 land factories  
+--         --'uab1104', 'ueb1104', 'urb1104', 'xsb1104', -- T2 mass fabs
+--         --'uab1304', 'ueb1304', 'urb1304', 'xsb1304', -- T3 mass fabs      
+--         --'ueb1201', 'uab1201', 'urb1201', 'xsb1201',--Tech 2 power generators, slow down tech 2 with the half reactors.
+--         --'ueb1301', 'uab1301', 'urb1301', 'xsb1301',--Tech 3 power generators, slow down tech 2 with the half reactors.
+--         --'seb1201', 'sab1201', 'srb1201', 'ssb1201',
+--         --uef vanilla air
+--         --'uea0101', 'uea0102', 'uea0103', 'uea0204',
+--         --'uea0203', 'uea0206', 'uea0302', 'uea0304',
+-- 		--'uea0303',
+-- 		--cybran vanilla air
+--         --'ura0101', 'ura0102', 'ura0103', 'ura0204',
+--         --'ura0203', 'ura0206', 'ura0302', 'ura0304',
+-- 		--'ura0303', 'xra0105',
+-- 		--aeon vanilla air
+-- 		--'uaa0101', 'uaa0102', 'uaa0103', 'uaa0204',
+--         --'uaa0203', 'uaa0206', 'uaa0302', 'uaa0304',
+-- 		--'uaa0303', 'xaa0202', 'daa0206', 'xaa0306',
+-- 		--'xaa0305',
+--         --seraph vanilla air
+--         --'xsa0101', 'xsa0102', 'xsa0103', 'xsa0204',
+--         --'xsa0203', 'xsa0206', 'xsa0302', 'xsa0304',
+-- 		--'xsa0303', 
+-- 		--uef vanilla land
+-- 		--'uel0104', 'uel0103',
+-- 		--'uel0202', 'uel0107', 'uel0307', 'uel0111',
+-- 		--'uel0203', 'uel0303', 'uel0305', 'uel0304', 
+-- 		--'uel0308',
+-- 		--cybran vanilla land
+-- 		--'url0104', 'url0103',
+-- 		--'drl0204', 'url0203', 'url0111', 'url0205', 
+-- 		--'xrl0305', 'url0303', 'url0305', 'url0306', 
+-- 		--'url0304',
+-- 		--aeon vanilla land
+-- 		--'ual0107', 'ual0103', 'ual0104', 
+-- 		--'ual0201', 'ual0205', 'xal0203', 'ual0111', 
+-- 		--'ual0204', 'ual0302', 'ual0304', 'ual0310',
+-- 		--'dal0310',
+-- 		-- serphim vanilla land
+-- 		--'xsl0104', 'xsl0201', 'xsl0103',
+-- 		--'xsl0202', 'xsl0203', 'xsl0205', 'xsl0111',
+-- 		--'ssl0222', 'xsl0303', 'xsl0304', 'xsl0307', 
+-- 		--'xsl0305', 'xsl0310a'        
+--     }
+--     for i, id in restrict do
+--         if all_bps[id] then
+--             table.insert(all_bps[id].Categories, 'RESEARCHLOCKED')
+--         end
+--     end
+-- end
 
 --------------------------------------------------------------------------------
 -- Create build categories for the amphib/sub/seaplane factories
@@ -252,7 +252,7 @@ function GenerateResearchItemBPs(all_bps)
                     BuildTime = 960,
                     ResearchMult = 1,
                 },
-                Categories = {'TECH2'},
+                Categories = {'TECH2', 'RESEARCHLOCKED'},
                 Description = '<LOC srnd9200_desc>Units Level Research',
             },
             MK2 = {

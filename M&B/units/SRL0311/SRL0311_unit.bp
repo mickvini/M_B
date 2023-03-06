@@ -30,13 +30,17 @@ UnitBlueprint {
         'INDIRECTFIRE',
         'SILO',
         'VISIBLETORECON',
-        'RECLAIMABLE',		'RESEARCHLOCKED',
+        'RECLAIMABLE',
+		
     },
-    Defense = {
+    Defense = {
+
         ArmorType = 'Normal',
         EconomyThreatLevel = 42,
         Health = 1650,
-        MaxHealth = 1650,
+        MaxHealth = 1650,
+
+
         SurfaceThreatLevel = 6,
     },
     Description = '<LOC srl0311_desc>Mobile Rocket Platform',
@@ -111,15 +115,19 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.5,
-    Physics = {
+    Physics = {
+
+
         MaxAcceleration = 2.5,
         MaxBrake = 2.5,
         MaxSpeed = 2.5,
         MaxSpeedReverse = -1,
-        MaxSteerForce = 5,--10,
+        MaxSteerForce = 5,--10,
+
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.1,
+        RotateOnSpotThreshold = 0.1,
+
         TurnRate = 75,
     },
     SelectionCenterOffsetX = 0,

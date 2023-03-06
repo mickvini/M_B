@@ -29,7 +29,7 @@ UnitBlueprint {
         'RECLAIMABLE',
 		'SHOWQUEUE',
         'SORTECONOMY',
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetZ = 0.1,
     Defense = {

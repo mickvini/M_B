@@ -99,7 +99,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
 		'RESEARCHLOCKEDTECH1',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
 

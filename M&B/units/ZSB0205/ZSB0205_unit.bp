@@ -75,7 +75,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'OVERLAYMISC',
         'SORTECONOMY',  
-        'RESEARCHLOCKED',    
+            
     },    
     CollisionOffsetY = -0.25,    
     Defense = {

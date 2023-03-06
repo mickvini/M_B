@@ -34,7 +34,7 @@ UnitBlueprint {
         'RECLAIMABLE',
 		'SHOWQUEUE',
         'SORTECONOMY',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         ArmorType = 'Structure',

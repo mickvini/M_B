@@ -62,13 +62,14 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYRADAR',
         'OVERLAYOMNI',
-		'RESEARCHLOCKED',
+		
     },
     Defense = {
         AirThreatLevel = 11,
         ArmorType = 'Normal',
         Health = 5250,
-        MaxHealth = 5250,
+        MaxHealth = 5250,
+
     },
     Description = '<LOC sel0324_desc>Mobile Anti-Air SAM Launcher',
     Display = {
@@ -154,7 +155,9 @@ UnitBlueprint {
     LifeBarOffset = 1,
     LifeBarSize = 1.2,
     Physics = {
-        BackUpDistance = 4,
+        BackUpDistance = 4,
+
+
         MaxAcceleration = 0.7,
         MaxBrake = 1,
         MaxSpeed = 3.7,
@@ -162,8 +165,10 @@ UnitBlueprint {
         MaxSteerForce = 2.5,
         MeshExtentsX = 1,
         MeshExtentsY = 1.5,
-        MeshExtentsZ = 1.25,
-        MotionType = 'RULEUMT_Land',
+        MeshExtentsZ = 1.25,
+
+        MotionType = 'RULEUMT_Land',
+
         TurnRate = 60,
     },
     SelectionCenterOffsetZ = -0.02,

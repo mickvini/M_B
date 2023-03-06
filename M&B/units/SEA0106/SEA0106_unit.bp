@@ -107,7 +107,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYSONAR',
 		'RESEARCHLOCKEDTECH1',
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetY = -0.2,
     CollisionOffsetZ = -0.1,

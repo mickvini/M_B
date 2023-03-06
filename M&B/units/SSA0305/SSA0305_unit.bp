@@ -95,7 +95,7 @@ UnitBlueprint {
         'GROUNDATTACK',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
+        
 
     },
     CollisionOffsetY = -0.075,

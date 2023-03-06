@@ -92,7 +92,7 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'OVERLAYSONAR',
         'OVERLAYRADAR',
-        'RESEARCHLOCKED',
+        
     },
 
     Defense = {

@@ -30,7 +30,7 @@ UnitBlueprint {
         'SILO',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'RESEARCHLOCKED',
+		
     },
     Defense = {
         AirThreatLevel = 5,

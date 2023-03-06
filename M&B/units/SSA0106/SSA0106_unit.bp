@@ -104,7 +104,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYSONAR',
 		'RESEARCHLOCKEDTECH1',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
 

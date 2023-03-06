@@ -62,7 +62,7 @@ UnitBlueprint {
         'ANTIAIR',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         MissileDetector = {

@@ -46,13 +46,15 @@ UnitBlueprint {
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'BOT',		'RESEARCHLOCKED',
+        'BOT',
+		
     },
     CollisionOffsetZ = -0.2,
     Defense = {
         ArmorType = 'Normal',
         Health = 1150,
-        MaxHealth = 1150,
+        MaxHealth = 1150,
+
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
             OwnerShieldMesh = '/mods/M&B/units/ssl0311/ssl0311_PersonalShield_mesh',
@@ -193,7 +195,9 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.2,
     LifeBarSize = 1,
-    Physics = {
+    Physics = {
+
+
         MaxAcceleration = 4,
         MaxBrake = 4,
         MaxSpeed = 4,
@@ -201,7 +205,8 @@ UnitBlueprint {
         MaxSteerForce = 3,
         MeshExtentsX = 1,
         MeshExtentsY = 0.5,
-        MeshExtentsZ = 1,
+        MeshExtentsZ = 1,
+
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
         TurnRadius = 2,

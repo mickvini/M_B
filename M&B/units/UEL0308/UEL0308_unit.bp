@@ -46,7 +46,7 @@ UnitBlueprint {
         'ANTIAIR',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         ArmorType = 'Normal',

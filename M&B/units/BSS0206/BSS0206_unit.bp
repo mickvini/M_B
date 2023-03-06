@@ -53,7 +53,7 @@ UnitBlueprint {
         'SHOWATTACKRETICLE',
         'BOMBARDMENT',
         'OVERLAYRADAR',
-        'RESEARCHLOCKED',
+        
     },
 	
     CollisionOffsetY = -0.4,

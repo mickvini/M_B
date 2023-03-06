@@ -28,7 +28,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
-        'RESEARCHLOCKED',
+        
         'SORTECONOMY',
     },
     Defense = {

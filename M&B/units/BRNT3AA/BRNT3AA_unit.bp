@@ -59,7 +59,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'TANK',
         'OVERLAYANTIAIR',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         AirThreatLevel = 0,

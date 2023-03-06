@@ -52,7 +52,7 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYSONAR',
         'SPECIALHIGHPRI',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         ArmorType = 'Light',

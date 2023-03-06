@@ -90,7 +90,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYRADAR',
         'OVERLAYSONAR',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         AirThreatLevel = 0.3,

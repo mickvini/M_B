@@ -110,7 +110,7 @@ UnitBlueprint {
         'SELECTABLE',
         'TECH2',
         'VISIBLETORECON',
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetY = 0,
     CollisionOffsetZ = 0,

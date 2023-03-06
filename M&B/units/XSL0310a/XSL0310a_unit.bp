@@ -48,7 +48,7 @@ UnitBlueprint {
         'SERAPHIM',                
         'EXPERIMENTAL',
         'VISIBLETORECON',   
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetY = 0,
     Defense = {

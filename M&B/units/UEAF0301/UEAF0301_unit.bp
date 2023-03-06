@@ -105,7 +105,7 @@ UnitBlueprint {
         'SHOWATTACKRETICLE',
         'OVERLAYANTIAIR',
         'OVERLAYRADAR',
-        'RESEARCHLOCKED',
+        
     },
     CollisionOffsetZ = 0,
     Defense = {

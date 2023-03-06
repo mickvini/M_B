@@ -73,7 +73,7 @@ UnitBlueprint {
         'SHIELD',
         'TANK',
         'OVERLAYDIRECTFIRE',
-		'RESEARCHLOCKED',
+		
     },
     Defense = {
         AirThreatLevel = 0,

@@ -53,7 +53,7 @@ UnitBlueprint {
         'BOT',
         'OVERLAYDIRECTFIRE',
         'OVERLAYANTIAIR',
-		'RESEARCHLOCKED',
+		
         'DRAGBUILD',
     },
     Defense = {

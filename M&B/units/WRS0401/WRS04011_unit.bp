@@ -60,7 +60,7 @@ UnitBlueprint {
         'OVERLAYANTIAIR',
         'OVERLAYSONAR',
         'OVERLAYRADAR',
-		'RESEARCHLOCKED',			
+					
     },
     CollisionOffsetY = -0.375,
     Defense = {
@@ -169,8 +169,8 @@ UnitBlueprint {
         ResearchMultMass = 0.25,			
     },
     Footprint = {
-        SizeX = 6 * 1.3,
-        SizeZ = 22 * 1.3,
+        SizeX = 8,
+        SizeZ = 29,
     },
     General = {
         Category = 'Ship',

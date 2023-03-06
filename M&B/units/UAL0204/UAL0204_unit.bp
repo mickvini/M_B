@@ -57,7 +57,7 @@ UnitBlueprint {
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'RESEARCHLOCKED',
+		
     },
     Defense = {
         ArmorType = 'Normal',

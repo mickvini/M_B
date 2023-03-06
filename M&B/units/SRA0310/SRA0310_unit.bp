@@ -90,7 +90,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYCOUNTERINTEL',
         'SPECIALHIGHPRI',
-        'RESEARCHLOCKED',
+        
     },
 
     Defense = {

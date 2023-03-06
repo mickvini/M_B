@@ -59,7 +59,7 @@ UnitBlueprint {
         'TANK',
         'OVERLAYDIRECTFIRE',
         'OVERLAYRADAR',
-		'RESEARCHLOCKED',
+		
     },
     Defense = {
         AirThreatLevel = 0,

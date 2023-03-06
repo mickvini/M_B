@@ -62,7 +62,7 @@ UnitBlueprint {
         'BOT',
         'OVERLAYDIRECTFIRE',
         'OVERLAYANTIAIR',
-		'RESEARCHLOCKED',
+		
     },
     CollisionOffsetY = 0,
     Defense = {

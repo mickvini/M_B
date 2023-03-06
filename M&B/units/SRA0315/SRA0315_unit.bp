@@ -57,7 +57,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYCOUNTERINTEL',
-        'RESEARCHLOCKED',
+        
     },
     Defense = {
         MissileDetector = {

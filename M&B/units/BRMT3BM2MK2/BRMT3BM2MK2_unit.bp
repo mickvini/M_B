@@ -60,7 +60,7 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'OVERLAYRADAR',
         'COUNTERINTELLIGENCE',
-		'RESEARCHLOCKED',
+		
     },
     Defense = {
         AirThreatLevel = 0,
