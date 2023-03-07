@@ -243,7 +243,7 @@ function GenerateResearchItemBPs(all_bps)
                 Categories = {'EXPERIMENTAL'},
                 Description = '<LOC srnd9400_desc>Experimental Tech Level Research',
             },
-            MK1 = {
+            MK11 = {
                 techid = 11,
                 BuildIconSortPriority = 0,
                 Economy = {
@@ -252,10 +252,10 @@ function GenerateResearchItemBPs(all_bps)
                     BuildTime = 960,
                     ResearchMult = 1,
                 },
-                Categories = {'TECH2', 'RESEARCHLOCKED'},
-                Description = '<LOC srnd9200_desc>Units Level Research',
+                Categories = {'TECH2'},
+                Description = '<LOC srnd9200_desc>Structure Units Level Research',
             },
-            MK2 = {
+            MK12 = {
                 techid = 12,
                 BuildIconSortPriority = 0,
                 Economy = {
@@ -265,7 +265,43 @@ function GenerateResearchItemBPs(all_bps)
                     ResearchMult = 1,
                 },
                 Categories = {'TECH2'},
-                Description = '<LOC srnd9200_desc>Units Level Research',
+                Description = '<LOC srnd9200_desc>Construction Units(engineers) Level Research',
+            },
+            MK13 = {
+                techid = 13,
+                BuildIconSortPriority = 0,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = '<LOC srnd9200_desc>Mobile(Walking, Land, Hovers) Land Units Level Research',
+            },
+            MK14 = {
+                techid = 14,
+                BuildIconSortPriority = 0,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = '<LOC srnd9200_desc>Health and Regen(Walking, Land, Hovers) Land Units Level Research',
+            },
+            MK15 = {
+                techid = 15,
+                BuildIconSortPriority = 0,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = '<LOC srnd9200_desc>Weapon(Walking, Land, Hovers) Land Units Level Research',
             },
         }
         for tech, bp in techresearch do

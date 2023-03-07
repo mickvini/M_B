@@ -145,9 +145,15 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 local wepbp = wep:GetBlueprint()
                 local weprad = wepbp.DamageRadius
                 local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
-                
-                wep:SetDamageRadius(val)
-                
+                LOG(wep)
+                LOG(wepbp)
+                LOG(weprad)
+                LOG(val)
+                if weprad ~= 0 then
+                    wep:SetDamageRadius(tonumber(val))
+                else
+                    return
+                end                
                 #LOG('*BUFF: Unit ', repr(unit:GetEntityId()), ' buffed damage radius to ', repr(val))
             end
 

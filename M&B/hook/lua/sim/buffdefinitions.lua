@@ -35,3 +35,45 @@ BuffBlueprint {
         MassActive = {Add = -0.1, Mult = 1},
     },
 }
+
+BuffBlueprint {
+    Name = 'StructureHealthMod', DisplayName = 'StructureHealthMod',
+    BuffType = 'StructureHealthBuff', Stacks = 'ALWAYS', Duration = -1,
+    Affects = {        
+        MaxHealth = {Add = 0, Mult = 1.25},        
+    },
+}
+BuffBlueprint {
+    Name = 'ConstrctionBotMod', DisplayName = 'ConstrctionBotMod',
+    BuffType = 'ConstrctionBuildRateAndHealthMod', Stacks = 'ALWAYS', Duration = -1,
+    Affects = {        
+        MaxHealth = {Add = 0, Mult = 1.25},
+        BuildRate = {Add = 0, Mult = 1.25},        
+    },
+}
+BuffBlueprint {
+    Name = 'MobileBuffLand', DisplayName = 'MobileBuffLand',
+    BuffType = 'MobileBuffLand', Stacks = 'ALWAYS', Duration = -1,
+    Affects = {        
+        MoveMult = {Add = 0, Mult = 1.25},                
+    },
+}
+BuffBlueprint {
+    Name = 'HealthBuffLand', DisplayName = 'HealthBuffLand',
+    BuffType = 'HealthBuffLand', Stacks = 'ALWAYS', Duration = -1,
+    Affects = {        
+        MaxHealth = {Add = 0, Mult = 1.25},  
+        Regen = {Add = 1, Mult = 1.25},              
+    },
+}
+
+BuffBlueprint {
+    Name = 'WeaponBuffLand', DisplayName = 'WeaponBuffLand',
+    BuffType = 'WeaponBuffLand', Stacks = 'ALWAYS', Duration = -1,
+    Affects = {        
+        Damage = {Add = 0, Mult = 1.25},  
+        DamageRadius = {Add = 0, Mult = 1.25},  
+        MaxRadius = {Add = 0, Mult = 1.25},
+        RateOfFire = {Add = 0, Mult = 1.25},            
+    },
+}

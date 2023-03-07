@@ -1,38 +1,117 @@
 local Game = import('/lua/game.lua')
+--local Buff = import('/mods/M&B/hook/lua/sim/Buff.lua')
 --------------------------------------------------------------------------------
 local MK = {
-    { 0, 0, 0, 0, 0, },
-    { 0, 0, 0, 0, 0, },
-    { 0, 0, 0, 0, 0, },
-    { 0, 0, 0, 0, 0, },
-    { 0, 0, 0, 0, 0, },
-    { 0, 0, 0, 0, 0, },
-    { 0, 0, 0, 0, 0, },
-    { 0, 0, 0, 0, 0, },
+    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
+    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
+    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
+    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
+    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
+    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
+    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
+    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
 }
 
-countingResearchsToUnlockTECH = function(unit, army)        
+
+countingResearchsToUnlockTECH = function(unit, army, tech)        
     local unitBp = unit:GetBlueprint()
-    MK[army][1] = MK[army][1]+1
+    MK[army][tech] = true
     LOG(army)
-    LOG(MK[army][1])              
+    LOG(unpack(MK[army]))              
 end
 
-SetMarkLevel = function(self, zeroMK)
-    LOG(self)      
-    local bp = self:GetBlueprint()  
-    LOG(bp)      
-    --Check for unit buffs
-    
-         -- Generate a buff based on the data paseed in        
-    local unitz = GetUnitById(bp.BlueprintId)
-    LOG('Unit:'.. unitz:GetUnitId())
-    LOG('Self:'..self:GetUnitId())
-    if bp then
-       Buff.ApplyBuff(self , 'VeterancyHealth5' )                       
-    end
-    LOG(self:GetBlueprint().Defense.Health)        
+SetMarkLevel = function(self,army, buffName)       
+    local bp = self:GetBlueprint()        
+    --Check for unit buffs    
+    -- Generate a buff based on the data paseed in    
+    if bp then        
+        Buff.ApplyBuff(self ,  buffName)                       
+    end    
+    LOG(self:GetBlueprint().Defense.Health)
+    LOG(self:GetBlueprint().Economy.BuildRate)        
 end
+
+
+--Update existing defaultunits classes   
+
+
+local oldStructureUint = StructureUnit
+local oldConstructionUnit = ConstructionUnit
+local oldWalkingLandUnit = WalkingLandUnit
+StructureUnit = Class(oldStructureUint) {
+
+    OnStopBeingBuilt = function(self, builder, layer)
+        oldStructureUint.OnStopBeingBuilt(self,builder,layer)
+        local army = self:GetArmy()    
+        LOG(MK[army]['MK11'])
+        if MK[army]['MK11'] == true then
+            SetMarkLevel(self, army, 'StructureHealthMod')
+        end
+    end,
+
+}
+ConstructionUnit = Class(oldConstructionUnit){
+    OnStopBeingBuilt = function(self, builder, layer)
+        oldConstructionUnit.OnStopBeingBuilt(self,builder,layer)
+        local army = self:GetArmy()    
+        LOG(MK[army]['MK12'])
+        if MK[army]['MK12'] == true then
+            SetMarkLevel(self, army, 'ConstrctionBotMod')
+        end
+    end,
+}
+-- Attack units
+WalkingLandUnit = Class(oldWalkingLandUnit) {
+    OnStopBeingBuilt = function(self, builder, layer)
+        oldWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+        local army = self:GetArmy()    
+        LOG(MK[army]['MK13'])
+        if MK[army]['MK13'] == true then
+            SetMarkLevel(self, army, 'MobileBuffLand')
+        end
+        if MK[army]['MK14'] == true then
+            SetMarkLevel(self, army, 'HealthBuffLand')
+        end
+        if MK[army]['MK15'] == true then
+            SetMarkLevel(self, army, 'WeaponBuffLand')
+        end
+    end,
+}
+
+LandUnit = Class(MobileUnit) {
+    OnStopBeingBuilt = function(self, builder, layer)
+        MobileUnit.OnStopBeingBuilt(self, builder, layer)
+        local army = self:GetArmy()    
+        LOG(MK[army]['MK13'])
+        if MK[army]['MK13'] == true then
+            SetMarkLevel(self, army, 'MobileBuffLand')
+        end
+        if MK[army]['MK14'] == true then
+            SetMarkLevel(self, army, 'HealthBuffLand')
+        end        
+        if MK[army]['MK15'] == true then
+            SetMarkLevel(self, army, 'WeaponBuffLand')
+        end
+    end,
+}
+
+HoverLandUnit = Class(MobileUnit) {
+    OnStopBeingBuilt = function(self, builder, layer)
+        MobileUnit.OnStopBeingBuilt(self, builder, layer)
+        local army = self:GetArmy()    
+        LOG(MK[army]['MK13'])
+        if MK[army]['MK13'] == true then
+            SetMarkLevel(self, army, 'MobileBuffLand')
+        end
+        if MK[army]['MK14'] == true then
+            SetMarkLevel(self, army, 'HealthBuffLand')
+        end  
+        if MK[army]['MK15'] == true then
+            SetMarkLevel(self, army, 'WeaponBuffLand')
+        end      
+    end,
+}
+    
 
 ResearchItem = Class(DummyUnit) {
     OnCreate = function(self)
@@ -60,10 +139,8 @@ ResearchItem = Class(DummyUnit) {
                 RemoveBuildRestriction(self:GetArmy(), categories.TECH3 * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
             elseif bp.ResearchId == 'TECH3' then
                 RemoveBuildRestriction(self:GetArmy(), categories.EXPERIMENTAL * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
-            elseif bp.ResearchId == 'MK1' then
-                countingResearchsToUnlockTECH(self,army)
-            elseif bp.ResearchId == 'MK2' then
-                countingResearchsToUnlockTECH(self,army)
+            elseif string.find(bp.ResearchId, 'MK') then
+                countingResearchsToUnlockTECH(self, army, bp.ResearchId )           
             else
                 RemoveBuildRestriction(army, 
                 (categories[bp.ResearchId] * -- E.G. TECH2
@@ -271,4 +348,3 @@ ResearchFactoryUnit = Class(FactoryUnit) {
     end
 }
 
---Update existing defaultunits classes
