@@ -21,10 +21,7 @@ BROAT2FIBO = Class(AAirUnit) {
         },
         aircraft = Class(AAASonicPulseBatteryWeapon) {
             FxMuzzleFlashScale = 0,
-	},
-        rocket1 = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 0.1,
-	},
+	},        
     }, 
 }
 

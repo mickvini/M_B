@@ -105,8 +105,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYANTIAIR',
-		'RESEARCHLOCKEDTECH1',
-        
+		'RESEARCHLOCKEDTECH1',        
     },
     Defense = {
         AirThreatLevel = 0.33,
@@ -118,11 +117,10 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = 'Interceptor',
+    Description = 'Heavy Fighter',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
-            'Air to Ground fire',
         },
         LayerChangeEffects = {
             AirLand = {
@@ -226,7 +224,7 @@ UnitBlueprint {
         VisionRadius = 28,
     },
     Interface = {
-        HelpText = 'Interceptor',
+        HelpText = 'Heavy Fighter',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
@@ -323,7 +321,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
-                'AIR MOBILE -INTELLIGENCE',
+                'AIR MOBILE INTELLIGENCE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },

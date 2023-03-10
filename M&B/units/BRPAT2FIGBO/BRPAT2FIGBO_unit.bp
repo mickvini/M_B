@@ -105,8 +105,6 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYANTIAIR',
-        'OVERLAYDIRECTFIRE',
-        
     },
     CollisionOffsetY = 0,
     Defense = {
@@ -123,7 +121,6 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
-            'Air to Ground Fire',
         },
         LayerChangeEffects = {
             AirLand = {
@@ -317,15 +314,14 @@ UnitBlueprint {
             RateOfFire = 0.7,
             TargetCheckInterval = 0.66,
             TargetPriorities = {
-                'AIR',
-                'TECH1 MOBILE',
-                'TECH2 MOBILE',
-                'TECH3 MOBILE',
-                'STRUCTURE DEFENSE',
+                'SPECIALHIGHPRI',
+                'AIR MOBILE',
+                'AIR MOBILE -INTELLIGENCE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.15,
             TurretBoneMuzzle = 'muzzle',
             TurretBonePitch = 'muzzle',
@@ -394,12 +390,13 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE',
-                'STRUCTURE DEFENSE',
+                'AIR MOBILE',
+                'AIR MOBILE -INTELLIGENCE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.05,
             TurretBoneMuzzle = 'AttachPoint',
             TurretBonePitch = 'AttachPoint',
@@ -467,12 +464,13 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE',
-                'STRUCTURE DEFENSE',
+                'AIR MOBILE',
+                'AIR MOBILE -INTELLIGENCE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.05,
             TurretBoneMuzzle = 'AttachPoint',
             TurretBonePitch = 'AttachPoint',

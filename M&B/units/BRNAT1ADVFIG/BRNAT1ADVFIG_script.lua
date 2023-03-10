@@ -17,10 +17,7 @@ BRNAT1ADVFIG = Class(TAirUnit) {
     Weapons = {
         aamissiles1 = Class(TDFGaussCannonWeapon) {
 			            FxMuzzleFlashScale = 0.0, 
-	},
-        AGmissiles1 = Class(TDFGaussCannonWeapon) {
-			            FxMuzzleFlashScale = 0.0, 
-	},
+	},       
         autoattack = Class(TDFGaussCannonWeapon) {
 			            FxMuzzleFlashScale = 0.0, 
 	},

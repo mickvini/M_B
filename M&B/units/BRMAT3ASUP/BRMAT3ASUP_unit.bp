@@ -116,11 +116,10 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = 'Multi-Purpose Fighter',
+    Description = 'Fighter',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
-            'Air to Ground Fire',
         },
         LayerChangeEffects = {
             AirLand = {
@@ -323,7 +322,8 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 0,
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Muzzle01',
@@ -337,7 +337,7 @@ UnitBlueprint {
             TurretYawSpeed = 360,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
+            WeaponCategory = 'Anti Air',
         },
         {
             AboveWaterTargetsOnly = true,
@@ -397,7 +397,8 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictOnlyAllow = 'AIR',
             TurretBoneMuzzle = 'Muzzle02',
             TurretBonePitch = 'Muzzle02',
             TurretBoneYaw = 'Muzzle02',
@@ -410,7 +411,7 @@ UnitBlueprint {
             TurretYawSpeed = 360,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Direct Fire',
+            WeaponCategory = 'Anti Air',
         },
         {
             AboveWaterTargetsOnly = true,
