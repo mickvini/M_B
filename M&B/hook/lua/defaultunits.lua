@@ -24,12 +24,40 @@ countingResearchsToUnlockTECH = function(unit, army, tech)
     local factions = { Aeon = 'sar9', UEF = 'ser9', Cybran = 'srr9', Seraphim = 'ssr9' }   
     if (tonumber(string.sub(tech, 3)) + 100) < 515 then
         RemoveBuildRestriction(army, categories[factions[unitBp.General.FactionName].. (tonumber(string.sub(tech, 3)) + 100) .. '00'])
-    end              
+    end
+    local pos = unit:GetPosition()
+    local updateTargets = GetUnitsInRect(pos[1] - 100, pos[3] - 100, pos[1] + 100, pos[3] + 100)
+    LOG(unpack(updateTargets))
+    for i, units in updateTargets do
+        if (units) then 
+            if IsAlly(army, units:GetArmy()) then
+                local unitsBp = units:GetBlueprint()
+                local factionCat = unitsBp.General.FactionName
+                if not table.find(unitsBp.Categories, 'COMMAND') and table.find(unitsBp.Categories, 'STRUCTURE') then
+                    if MK[army][1][factionCat] > 0 and not table.find(unitsBp.Categories, 'DEFENSE') and not table.find(unitsBp.Categories, 'ARTILLERY') and not table.find(unitsBp.Categories, 'ENGINEERSTATION') then
+                        SetMarkLevel(units, 'StructureHealthMod' .. MK[army][1][factionCat])
+                    end
+                    if MK[army][2][factionCat] > 0 and table.find(unitsBp.Categories, 'ENGINEER') and not table.find(unitsBp.Categories, 'ENGINEERSTATION') and not table.find(unitsBp.Categories, 'STATIONASSISTPOD')then
+                        SetMarkLevel(units, 'ConstrctionBotMod' .. MK[army][2][factionCat])
+                    end
+                    if MK[army][3][factionCat] > 0  and table.find(unitsBp.Categories, 'STATIONASSISTPOD') or table.find(unitsBp.Categories, 'ENGINEERSTATION') then
+                        SetMarkLevel(units, 'EngineerStationMod' .. MK[army][3][factionCat])
+                    end
+                    if MK[army][13][factionCat] > 0 and table.find(unitsBp.Categories, 'DEFENSE') or table.find(unitsBp.Categories, 'ARTILLERY') then
+                        SetMarkLevel(units, 'WeaponBuffTurret' .. MK[army][13][factionCat])
+                    end
+                    if MK[army][14][factionCat] > 0 and table.find(unitsBp.Categories, 'DEFENSE') then
+                        SetMarkLevel(units, 'HealthBuffTurret' .. MK[army][14][factionCat])
+                    end                    
+                end
+            end
+        end
+    end
+    LOG('2')
 end
 
-SetMarkLevel = function(self,army, buffName)       
-    local bp = self:GetBlueprint()       
-    if bp then        
+SetMarkLevel = function(self, buffName)    
+    if self:GetBlueprint()  then        
         Buff.ApplyBuff(self ,  buffName)                       
     end      
 end
@@ -44,6 +72,7 @@ local oldWalkingLandUnit = WalkingLandUnit
 local oldSubUnit = SubUnit
 local oldAirUnit = AirUnit
 local oldSeaUnit = SeaUnit
+
 StructureUnit = Class(oldStructureUint) {
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -51,17 +80,17 @@ StructureUnit = Class(oldStructureUint) {
         local army = self:GetArmy() 
         local unitBp = self:GetBlueprint()
         local factionCat = unitBp.General.FactionName        
-        if MK[army][1][factionCat] > 0 and not table.find(unitBp.Categories, 'DEFENSE') and not table.find(unitBp.Categories, 'ENGINEERSTATION') then
-            SetMarkLevel(self, army, 'StructureHealthMod' .. MK[army][1][factionCat])
+        if MK[army][1][factionCat] > 0 and table.find(unitBp.Categories, 'STRUCTURE') and  not table.find(unitBp.Categories, 'DEFENSE') and not table.find(unitBp.Categories, 'ENGINEERSTATION') then
+            SetMarkLevel(self, 'StructureHealthMod' .. MK[army][1][factionCat])
         end
         if MK[army][3][factionCat] > 0 and table.find(unitBp.Categories, 'ENGINEERSTATION') then
-            SetMarkLevel(self, army, 'EngineerStationMod' .. MK[army][3][factionCat])
+            SetMarkLevel(self, 'EngineerStationMod' .. MK[army][3][factionCat])
         end
         if MK[army][13][factionCat] > 0 and table.find(unitBp.Categories, 'DEFENSE') then
-            SetMarkLevel(self, army, 'WeaponBuffTurret' .. MK[army][13][factionCat])
+            SetMarkLevel(self, 'WeaponBuffTurret' .. MK[army][13][factionCat])
         end
         if MK[army][14][factionCat] > 0 and table.find(unitBp.Categories, 'DEFENSE') then
-            SetMarkLevel(self, army, 'HealthBuffTurret' .. MK[army][14][factionCat])
+            SetMarkLevel(self, 'HealthBuffTurret' .. MK[army][14][factionCat])
         end
     end,
 
@@ -73,7 +102,7 @@ ConstructionUnit = Class(oldConstructionUnit){
         local unitBp = self:GetBlueprint()
         local factionCat = unitBp.General.FactionName
         if MK[army][2][factionCat] > 0 then
-            SetMarkLevel(self, army, 'ConstrctionBotMod' .. MK[army][2][factionCat])
+            SetMarkLevel(self, 'ConstrctionBotMod' .. MK[army][2][factionCat])
         end
     end,
     OnCreate = function(self)
@@ -82,7 +111,7 @@ ConstructionUnit = Class(oldConstructionUnit){
         local unitBp = self:GetBlueprint()
         local factionCat = unitBp.General.FactionName
         if MK[army][3][factionCat] > 0  and table.find(unitBp.Categories, 'STATIONASSISTPOD') then
-            SetMarkLevel(self, army, 'EngineerStationMod' .. MK[army][3][factionCat])
+            SetMarkLevel(self, 'EngineerStationMod' .. MK[army][3][factionCat])
         end
     end,
 }
@@ -93,13 +122,13 @@ WalkingLandUnit = Class(oldWalkingLandUnit) {
         local army = self:GetArmy()   
         local factionCat = self:GetBlueprint().General.FactionName
         if MK[army][4][factionCat] > 0 then
-            SetMarkLevel(self, army, 'MobileBuffLand' .. MK[army][4][factionCat])
+            SetMarkLevel(self, 'MobileBuffLand' .. MK[army][4][factionCat])
         end
         if MK[army][5][factionCat] > 0 then
-            SetMarkLevel(self, army, 'HealthBuffLand' .. MK[army][5][factionCat])
+            SetMarkLevel(self, 'HealthBuffLand' .. MK[army][5][factionCat])
         end        
         if MK[army][6][factionCat] > 0 then
-            SetMarkLevel(self, army, 'WeaponBuffLand' .. MK[army][6][factionCat])
+            SetMarkLevel(self, 'WeaponBuffLand' .. MK[army][6][factionCat])
         end
     end,
 }
@@ -110,13 +139,13 @@ LandUnit = Class(MobileUnit) {
         local army = self:GetArmy()    
         local factionCat = self:GetBlueprint().General.FactionName
         if MK[army][4][factionCat] > 0 then
-            SetMarkLevel(self, army, 'MobileBuffLand' .. MK[army][4][factionCat])
+            SetMarkLevel(self, 'MobileBuffLand' .. MK[army][4][factionCat])
         end
         if MK[army][5][factionCat] > 0 then
-            SetMarkLevel(self, army, 'HealthBuffLand' .. MK[army][5][factionCat])
+            SetMarkLevel(self, 'HealthBuffLand' .. MK[army][5][factionCat])
         end        
         if MK[army][6][factionCat] > 0 then
-            SetMarkLevel(self, army, 'WeaponBuffLand' .. MK[army][6][factionCat])
+            SetMarkLevel(self, 'WeaponBuffLand' .. MK[army][6][factionCat])
         end
     end,
 }
@@ -127,13 +156,13 @@ HoverLandUnit = Class(MobileUnit) {
         local army = self:GetArmy()    
         local factionCat = self:GetBlueprint().General.FactionName
         if MK[army][4][factionCat] > 0 then
-            SetMarkLevel(self, army, 'MobileBuffLand' .. MK[army][4][factionCat])
+            SetMarkLevel(self, 'MobileBuffLand' .. MK[army][4][factionCat])
         end
         if MK[army][5][factionCat] > 0 then
-            SetMarkLevel(self, army, 'HealthBuffLand' .. MK[army][5][factionCat])
+            SetMarkLevel(self, 'HealthBuffLand' .. MK[army][5][factionCat])
         end        
         if MK[army][6][factionCat] > 0 then
-            SetMarkLevel(self, army, 'WeaponBuffLand' .. MK[army][6][factionCat])
+            SetMarkLevel(self, 'WeaponBuffLand' .. MK[army][6][factionCat])
         end
     end,
 }
@@ -144,13 +173,13 @@ AirUnit = Class(oldAirUnit) {
         local army = self:GetArmy() 
         local factionCat = self:GetBlueprint().General.FactionName
         if MK[army][7][factionCat] > 0 then
-            SetMarkLevel(self, army, 'MobileBuffAir' .. MK[army][7][factionCat])
+            SetMarkLevel(self, 'MobileBuffAir' .. MK[army][7][factionCat])
         end
         if MK[army][8][factionCat] > 0 then
-            SetMarkLevel(self, army, 'HealthBuffAir' .. MK[army][8][factionCat])
+            SetMarkLevel(self, 'HealthBuffAir' .. MK[army][8][factionCat])
         end        
         if MK[army][9][factionCat] > 0 then
-            SetMarkLevel(self, army, 'WeaponBuffAir' .. MK[army][9][factionCat])
+            SetMarkLevel(self, 'WeaponBuffAir' .. MK[army][9][factionCat])
         end
     end,
 }
@@ -161,13 +190,13 @@ SeaUnit = Class(oldSeaUnit) {
         local army = self:GetArmy()    
         local factionCat = self:GetBlueprint().General.FactionName
         if MK[army][10][factionCat] > 0 then
-            SetMarkLevel(self, army, 'MobileBuffNaval' .. MK[army][10][factionCat])
+            SetMarkLevel(self, 'MobileBuffNaval' .. MK[army][10][factionCat])
         end
         if MK[army][11][factionCat] > 0 then
-            SetMarkLevel(self, army, 'HealthBuffNaval' .. MK[army][11][factionCat])
+            SetMarkLevel(self, 'HealthBuffNaval' .. MK[army][11][factionCat])
         end        
         if MK[army][12][factionCat] > 0 then
-            SetMarkLevel(self, army, 'WeaponBuffNaval' .. MK[army][12][factionCat])
+            SetMarkLevel(self, 'WeaponBuffNaval' .. MK[army][12][factionCat])
         end
     end,
 }
@@ -178,13 +207,13 @@ SubUnit = Class(oldSubUnit) {
         local army = self:GetArmy() 
         local factionCat = self:GetBlueprint().General.FactionName
         if MK[army][10][factionCat] > 0 then
-            SetMarkLevel(self, army, 'MobileBuffNaval' .. MK[army][10][factionCat])
+            SetMarkLevel(self, 'MobileBuffNaval' .. MK[army][10][factionCat])
         end
         if MK[army][11][factionCat] > 0 then
-            SetMarkLevel(self, army, 'HealthBuffNaval' .. MK[army][11][factionCat])
+            SetMarkLevel(self, 'HealthBuffNaval' .. MK[army][11][factionCat])
         end        
         if MK[army][12][factionCat] > 0 then
-            SetMarkLevel(self, army, 'WeaponBuffNaval' .. MK[army][12][factionCat])
+            SetMarkLevel(self, 'WeaponBuffNaval' .. MK[army][12][factionCat])
         end
     end,
 }

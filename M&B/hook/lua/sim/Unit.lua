@@ -1,8 +1,9 @@
 do
 -- local Mark = import('/mods/M&B/hook/lua/defaultunits.lua').Mark
-local oldUnit = import('/lua/sim/Unit.lua').Unit
+local oldUnit = Unit
 
-Unit = Class(oldUnit) {    
+Unit = Class(oldUnit) { 
+       
     -- OnCreate = function(self)
     --     oldUnit.OnCreate(self)
     --     self.MK = Mark.MK

@@ -20,7 +20,7 @@ BuffBlueprint {
     BuffType = 'RESEARCH', Stacks = 'ALWAYS', Duration = -1,
     Affects = {
         --Research buffs are passed on as upgrades, so the final upgrade gets 3 instances of these.
-        BuildRate = {Add = 0, Mult = 1 + (0.25 / 3)},
+        BuildRate = {Add = 0, Mult = 1 + (0.10 / 3)},
         EnergyActive = {Add = -0.2, Mult = 1},
         MassActive = {Add = -0.2, Mult = 1},
     },
@@ -39,124 +39,124 @@ do
     for i = 1,5 do 
 BuffBlueprint {
     Name = 'StructureHealthMod' .. i, DisplayName = 'StructureHealthMod' .. i,
-    BuffType = 'StructureHealthBuff' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'StructureHealthBuff', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MaxHealth = {Add = 0, Mult = 1.25 * i},        
+        MaxHealth = {Add = 0, Mult = 1.10 + i/10},        
     },
 }
 
 BuffBlueprint {
     Name = 'ConstrctionBotMod' .. i, DisplayName = 'ConstrctionBotMod' .. i,
-    BuffType = 'ConstrctionBuildRateAndHealthMod'..i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'ConstrctionBuildRateAndHealthMod', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MaxHealth = {Add = 0, Mult = 1.25 * i},
-        BuildRate = {Add = 0, Mult = 1.25 * i},        
+        MaxHealth = {Add = 0, Mult = 1.10 + i/10},
+        BuildRate = {Add = 0, Mult = 1.10 + i/10},        
     },
 }
 BuffBlueprint {
     Name = 'EngineerStationMod' .. i, DisplayName = 'EngineerStationMod' .. i,
-    BuffType = 'EngineerStationMod'..i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'EngineerStationMod', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MaxHealth = {Add = 0, Mult = 1.25 * i},
-        BuildRate = {Add = 0, Mult = 1.25 * i},        
+        MaxHealth = {Add = 0, Mult = 1.10 + i/10},
+        BuildRate = {Add = 0, Mult = 1.10 + i/10},        
     },
 }
 BuffBlueprint {
     Name = 'MobileBuffLand' .. i, DisplayName = 'MobileBuffLand' .. i,
-    BuffType = 'MobileBuffLand' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'MobileBuffLand' , Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MoveMult = {Add = 0, Mult = 1.25 * i},                
+        MoveMult = {Add = 0, Mult = 1.10 + i/10},                
     },
 }
 BuffBlueprint {
     Name = 'HealthBuffLand' .. i, DisplayName = 'HealthBuffLand' .. i,
-    BuffType = 'HealthBuffLand' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'HealthBuffLand', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MaxHealth = {Add = 0, Mult = 1.25 * i},  
-        Regen = {Add = 1, Mult = 1.25 * i},              
+        MaxHealth = {Add = 0, Mult = 1.10 + i/10},  
+        Regen = {Add = 1, Mult = 1.10 + i/10},              
     },
 }
 
 BuffBlueprint {
     Name = 'WeaponBuffLand' .. i, DisplayName = 'WeaponBuffLand' .. i,
-    BuffType = 'WeaponBuffLand' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'WeaponBuffLand', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        Damage = {Add = 0, Mult = 1.25 * i},  
-        DamageRadius = {Add = 0, Mult = 1.25 * i},  
-        MaxRadius = {Add = 0, Mult = 1.25 * i},
-        RateOfFire = {Add = 0, Mult = 1.25 * i},            
+        Damage = {Add = 0, Mult = 1.10 + i/10},  
+        DamageRadius = {Add = 0, Mult = 1.10 + i/10},  
+        MaxRadius = {Add = 0, Mult = 1.10 + i/10},
+        RateOfFire = {Add = 0, Mult = 1 - i/10},            
     },
 }
 BuffBlueprint {
     Name = 'MobileBuffAir' .. i, DisplayName = 'MobileBuffAir' .. i,
-    BuffType = 'MobileBuffAir' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'MobileBuffAir', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MoveMult = {Add = 0, Mult = 1.25 * i},                
+        MoveMult = {Add = 0, Mult = 1.10 + i/10},                
     },
 }
 BuffBlueprint {
     Name = 'HealthBuffAir' .. i, DisplayName = 'HealthBuffAir' .. i,
-    BuffType = 'HealthBuffAir' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'HealthBuffAir', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MaxHealth = {Add = 0, Mult = 1.25 * i},  
-        Regen = {Add = 1, Mult = 1.25 * i},              
+        MaxHealth = {Add = 0, Mult = 1.10 + i/10},  
+        Regen = {Add = 1, Mult = 1.10 + i/10},              
     },
 }
 
 BuffBlueprint {
     Name = 'WeaponBuffAir' .. i, DisplayName = 'WeaponBuffAir' .. i,
-    BuffType = 'WeaponBuffAir' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'WeaponBuffAir', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        Damage = {Add = 0, Mult = 1.25 * i},  
-        DamageRadius = {Add = 0, Mult = 1.25 * i},  
-        MaxRadius = {Add = 0, Mult = 1.25 * i},
-        RateOfFire = {Add = 0, Mult = 1.25 * i},            
+        Damage = {Add = 0, Mult = 1.10 + i/10},  
+        DamageRadius = {Add = 0, Mult = 1.10 + i/10},  
+        MaxRadius = {Add = 0, Mult = 1.10 + i/10},
+        RateOfFire = {Add = 0, Mult = 1 - i/10},            
     },
 }
 BuffBlueprint {
     Name = 'MobileBuffNaval' .. i, DisplayName = 'MobileBuffNaval' .. i,
-    BuffType = 'MobileBuffNaval' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'MobileBuffNaval', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MoveMult = {Add = 0, Mult = 1.25 * i},                
+        MoveMult = {Add = 0, Mult = 1.10 + i/10},                
     },
 }
 BuffBlueprint {
     Name = 'HealthBuffNaval' .. i, DisplayName = 'HealthBuffNaval' .. i,
-    BuffType = 'HealthBuffNaval' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'HealthBuffNaval', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MaxHealth = {Add = 0, Mult = 1.25 * i},  
-        Regen = {Add = 1, Mult = 1.25 * i},              
+        MaxHealth = {Add = 0, Mult = 1.10 + i/10},  
+        Regen = {Add = 1, Mult = 1.10 + i/10},              
     },
 }
 
 BuffBlueprint {
     Name = 'WeaponBuffNaval' .. i, DisplayName = 'WeaponBuffNaval' .. i,
-    BuffType = 'WeaponBuffNaval' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'WeaponBuffNaval', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        Damage = {Add = 0, Mult = 1.25 * i},  
-        DamageRadius = {Add = 0, Mult = 1.25 * i},  
-        MaxRadius = {Add = 0, Mult = 1.25 * i},
-        RateOfFire = {Add = 0, Mult = 1.25 * i},            
+        Damage = {Add = 0, Mult = 1.10 + i/10},  
+        DamageRadius = {Add = 0, Mult = 1.10 + i/10},  
+        MaxRadius = {Add = 0, Mult = 1.10 + i/10},
+        RateOfFire = {Add = 0, Mult = 1 - i/10},            
     },
 }
 
 BuffBlueprint {
     Name = 'HealthBuffTurret'.. i, DisplayName = 'HealthBuffTurret'.. i,
-    BuffType = 'HealthBuffTurret'.. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'HealthBuffTurret', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        MaxHealth = {Add = 0, Mult = 1.25 * i},  
-        Regen = {Add = 1 * i, Mult = 1.25 * i},              
+        MaxHealth = {Add = 0, Mult = 1.10 + i/10},  
+        Regen = {Add = 1 + i/10, Mult = 1.10 + i/10},              
     },
 }
 
 BuffBlueprint {
     Name = 'WeaponBuffTurret' .. i, DisplayName = 'WeaponBuffTurret' .. i,
-    BuffType = 'WeaponBuffTurret' .. i, Stacks = 'ALWAYS', Duration = -1,
+    BuffType = 'WeaponBuffTurret', Stacks = 'REPLACE', Duration = -1,
     Affects = {        
-        Damage = {Add = 0, Mult = 1.25 * i},  
-        DamageRadius = {Add = 0, Mult = 1.25 * i},  
-        MaxRadius = {Add = 0, Mult = 1.25 * i},
-        RateOfFire = {Add = 0, Mult = 1.25 * i},            
+        Damage = {Add = 0, Mult = 1.10 + i/10},  
+        DamageRadius = {Add = 0, Mult = 1.10 + i/10},  
+        MaxRadius = {Add = 0, Mult = 1.10 + i/10},
+        RateOfFire = {Add = 0, Mult = 1.10 + i/10},            
     },
 }
 

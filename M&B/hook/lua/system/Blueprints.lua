@@ -1117,9 +1117,8 @@ function GenerateResearchItemBPs(all_bps)
                 end
                 if not bp.Display then
                     bp.Display = {}
-                end
+                end                
                 
-                LOG(unpack(bp.Categories))
                 bp.Display.IconName = newid
                 bp.General.FactionName = faction
                 RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)

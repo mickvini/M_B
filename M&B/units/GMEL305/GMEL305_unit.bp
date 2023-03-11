@@ -39,7 +39,7 @@ UnitBlueprint {
     Categories = {
         'PRODUCTSC1',
         'SELECTABLE',
-        'BYILTBYFACTORYUEFLL',       
+        'FACTORYUEFLL',       
         'UEF',
         'MOBILE',
         'LAND',
@@ -78,8 +78,7 @@ UnitBlueprint {
     Description = 'Super Heavy Assault Bot',
     Display = {
         Abilities = {
-            '<LOC ability_personalshield>Personal Shield',
-            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_personalshield>Personal Shield',            
         },
         AnimationDeath = {
             {
@@ -328,7 +327,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = 'RULEUBA_LowArc',
             CannotAttackGround = true,
             CollideFriendly = false,
             Damage = 200,
@@ -377,14 +376,14 @@ UnitBlueprint {
                     RackBone = 'Missile_Launcher',
                 },                                                                                                                                          
             },
-            RackFireTogether = false,
+            RackFireTogether = true,
             RackRecoilDistance = 0,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
+            RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 0.1,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
