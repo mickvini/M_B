@@ -10,7 +10,7 @@ local OldModBlueprints = ModBlueprints
 function ModBlueprints(all_blueprints)
     OldModBlueprints(all_blueprints)
     RNDPrepareScript(all_blueprints.Unit)
-    RNDPrepareScriptFORTECH4(all_blueprints.Unit)
+    -- RNDPrepareScriptFORTECH4(all_blueprints.Unit)
     -- RestrictExistingBlueprints(all_blueprints.Unit)
     RNDDefineNewFactoryBuildCategories(all_blueprints.Unit)
     GenerateResearchItemBPs(all_blueprints.Unit)
@@ -74,32 +74,32 @@ function RNDPrepareScript(all_bps)
        
     end
 end
-function RNDPrepareScriptFORTECH4(all_bps)
-    for id, bp in all_bps do
-        --Hard link upgrades, instead of soft-category linking, to prevent splurged links
-        --If they don't have a buildable category, we probably don't want to mess with it, and the upgrade tag is probably a mistake. Also make sure the thing exists.
-        if bp.General.UpgradesTo and bp.Economy.BuildableCategory and not table.find(bp.Economy.BuildableCategory, bp.General.UpgradesTo) and all_bps[bp.General.UpgradesTo] then
-            table.insert(bp.Economy.BuildableCategory, bp.General.UpgradesTo)
-            table.remove(all_bps[bp.General.UpgradesTo].Categories, TableFindSubstrings(all_bps[bp.General.UpgradesTo].Categories, 'BUILTBY', 'FACTORY'))
-        end
-        if bp.Categories and id ~= 'zzz6969' then -- zzz6969 is a cat dump unit for compatibility
-            --Create extended tech 1 restriction and allow the ACU to build them after the research
-            if table.find(bp.Categories, 'EXPERIMENTAL') and not table.find(bp.Categories, 'NEEDMOBILEBUILD') then
-                table.insert(bp.Categories, 'TECH4')             
-            end
-            CategoryArrayRemoveTierN(all_bps, bp.Economy.BuildableCategory)
-            CategoryArrayRemoveTierN(all_bps, bp.Categories)
-            if table.find(bp.Categories, 'CONSTRUCTIONSORTDOWN') then
-                table.removeByValue(bp.Categories, 'CONSTRUCTIONSORTDOWN')
-            end           
-        end
-        if bp.General.UpgradesTo and bp.Economy.BuildableCategory and not table.find(bp.Economy.BuildableCategory, bp.General.UpgradesTo) and all_bps[bp.General.UpgradesTo] then
-            table.insert(bp.Economy.BuildableCategory, bp.General.UpgradesTo)
-            table.remove(all_bps[bp.General.UpgradesTo].Categories, TableFindSubstrings(all_bps[bp.General.UpgradesTo].Categories, 'BUILTBY', 'FACTORY'))
-        end
+-- function RNDPrepareScriptFORTECH4(all_bps)
+--     for id, bp in all_bps do
+--         --Hard link upgrades, instead of soft-category linking, to prevent splurged links
+--         --If they don't have a buildable category, we probably don't want to mess with it, and the upgrade tag is probably a mistake. Also make sure the thing exists.
+--         if bp.General.UpgradesTo and bp.Economy.BuildableCategory and not table.find(bp.Economy.BuildableCategory, bp.General.UpgradesTo) and all_bps[bp.General.UpgradesTo] then
+--             table.insert(bp.Economy.BuildableCategory, bp.General.UpgradesTo)
+--             table.remove(all_bps[bp.General.UpgradesTo].Categories, TableFindSubstrings(all_bps[bp.General.UpgradesTo].Categories, 'BUILTBY', 'FACTORY'))
+--         end
+--         if bp.Categories and id ~= 'zzz6969' then -- zzz6969 is a cat dump unit for compatibility
+--             --Create extended tech 1 restriction and allow the ACU to build them after the research
+--             if table.find(bp.Categories, 'EXPERIMENTAL') and not table.find(bp.Categories, 'NEEDMOBILEBUILD') then
+--                 table.insert(bp.Categories, 'TECH4')             
+--             end
+--             CategoryArrayRemoveTierN(all_bps, bp.Economy.BuildableCategory)
+--             CategoryArrayRemoveTierN(all_bps, bp.Categories)
+--             if table.find(bp.Categories, 'CONSTRUCTIONSORTDOWN') then
+--                 table.removeByValue(bp.Categories, 'CONSTRUCTIONSORTDOWN')
+--             end           
+--         end
+--         if bp.General.UpgradesTo and bp.Economy.BuildableCategory and not table.find(bp.Economy.BuildableCategory, bp.General.UpgradesTo) and all_bps[bp.General.UpgradesTo] then
+--             table.insert(bp.Economy.BuildableCategory, bp.General.UpgradesTo)
+--             table.remove(all_bps[bp.General.UpgradesTo].Categories, TableFindSubstrings(all_bps[bp.General.UpgradesTo].Categories, 'BUILTBY', 'FACTORY'))
+--         end
        
-    end
-end
+--     end
+-- end
 
 --------------------------------------------------------------------------------
 -- Restrict a few vanilla units
@@ -243,57 +243,178 @@ function GenerateResearchItemBPs(all_bps)
                 Categories = {'EXPERIMENTAL'},
                 Description = '<LOC srnd9400_desc>Experimental Tech Level Research',
             },
-            MK11 = {
-                techid = 11,
-                BuildIconSortPriority = 0,
+
+            MK101 = {
+                techid = 101,
+                BuildIconSortPriority = 1,
                 Economy = {
                     BuildCostEnergy = 8040,
                     BuildCostMass = 960,
                     BuildTime = 960,
                     ResearchMult = 1,
                 },
-                Categories = {'TECH2'},
-                Description = '<LOC srnd9200_desc>Structure Units Level Research',
+                Categories = {'TECH1'},
+                Description = 'Structure Units Level 1 Research',
             },
-            MK12 = {
-                techid = 12,
-                BuildIconSortPriority = 0,
+            MK102 = {
+                techid = 102,
+                BuildIconSortPriority = 2,
                 Economy = {
                     BuildCostEnergy = 8040,
                     BuildCostMass = 960,
                     BuildTime = 960,
                     ResearchMult = 1,
                 },
-                Categories = {'TECH2'},
-                Description = '<LOC srnd9200_desc>Construction Units(engineers) Level Research',
+                Categories = {'TECH1'},
+                Description = 'Construction Units(engineers) Level 1 Research',
             },
-            MK13 = {
-                techid = 13,
-                BuildIconSortPriority = 0,
+            MK103 = {
+                techid = 103,
+                BuildIconSortPriority = 3,
                 Economy = {
                     BuildCostEnergy = 8040,
                     BuildCostMass = 960,
                     BuildTime = 960,
                     ResearchMult = 1,
                 },
-                Categories = {'TECH2'},
-                Description = '<LOC srnd9200_desc>Mobile(Walking, Land, Hovers) Land Units Level Research',
+                Categories = {'TECH1'},
+                Description = 'Hive Units Level 1 Research',
             },
-            MK14 = {
-                techid = 14,
-                BuildIconSortPriority = 0,
+            MK104 = {
+                techid = 104,
+                BuildIconSortPriority = 4,
                 Economy = {
                     BuildCostEnergy = 8040,
                     BuildCostMass = 960,
                     BuildTime = 960,
                     ResearchMult = 1,
                 },
-                Categories = {'TECH2'},
-                Description = '<LOC srnd9200_desc>Health and Regen(Walking, Land, Hovers) Land Units Level Research',
+                Categories = {'TECH1'},
+                Description = 'Mobile(Walking, Land, Hovers) Land Units Level 1 Research',
             },
-            MK15 = {
-                techid = 15,
-                BuildIconSortPriority = 0,
+            MK105 = {
+                techid = 105,
+                BuildIconSortPriority = 5,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Health and Regen(Walking, Land, Hovers) Land Units Level 1 Research',
+            },
+            MK106 = {
+                techid = 106,
+                BuildIconSortPriority = 6,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Weapon(Walking, Land, Hovers) Land UnitsUnits Level 1 Research',
+            },
+            MK107 = {
+                techid = 107,
+                BuildIconSortPriority = 7,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Mobile Air Units Level 1 Research',
+            },
+            MK108 = {
+                techid = 108,
+                BuildIconSortPriority = 8,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Health and Regen Air Units Level 1 Research',
+            },
+            MK109 = {
+                techid = 109,
+                BuildIconSortPriority = 9,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Weapon Air Units Level 1 Research',
+            },
+            MK110 = {
+                techid = 110,
+                BuildIconSortPriority = 10,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Mobile Naval Units Level 1 Research',
+            },
+            MK111 = {
+                techid = 111,
+                BuildIconSortPriority = 11,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Health and Regen Naval Units Level 1 Research',
+            },
+            MK112 = {
+                techid = 112,
+                BuildIconSortPriority = 12,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Weapon Naval Units Level 1 Research',
+            },
+            MK113 = {
+                techid = 113,
+                BuildIconSortPriority = 13,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Weapon Turret Units Level 1 Research',
+            },
+            MK114 = {
+                techid = 114,
+                BuildIconSortPriority = 14,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH1'},
+                Description = 'Health Turret Units Level 1 Research',
+            },                        
+            MK201 = {
+                techid = 201,
+                BuildIconSortPriority = 1,
                 Economy = {
                     BuildCostEnergy = 8040,
                     BuildCostMass = 960,
@@ -301,24 +422,704 @@ function GenerateResearchItemBPs(all_bps)
                     ResearchMult = 1,
                 },
                 Categories = {'TECH2'},
-                Description = '<LOC srnd9200_desc>Weapon(Walking, Land, Hovers) Land Units Level Research',
+                Description = 'Structure Units Level 2 Research',
+            },
+            MK202 = {
+                techid = 202,
+                BuildIconSortPriority = 2,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Construction Units(engineers) Level 2 Research',
+            },            
+            MK203 = {
+                techid = 203,
+                BuildIconSortPriority = 3,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Hive Units Level 2 Research',
+            },
+            MK204 = {
+                techid = 204,
+                BuildIconSortPriority = 4,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Mobile(Walking, Land, Hovers) Land Units Level 2 Research',
+            },
+            MK205 = {
+                techid = 205,
+                BuildIconSortPriority = 5,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Health and Regen(Walking, Land, Hovers) Land Units Level 2 Research',
+            },
+            MK206 = {
+                techid = 206,
+                BuildIconSortPriority = 6,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Weapon(Walking, Land, Hovers) Land Units Level 2 Research',
+            },
+            MK207 = {
+                techid = 207,
+                BuildIconSortPriority = 7,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Mobile Air Units Level 2 Research',
+            },
+            MK208 = {
+                techid = 208,
+                BuildIconSortPriority = 8,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Health and Regen Air Units Level 2 Research',
+            },
+            MK209 = {
+                techid = 209,
+                BuildIconSortPriority = 9,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Weapon Air Units Level 2 Research',
+            },
+            MK210 = {
+                techid = 210,
+                BuildIconSortPriority = 10,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Mobile Naval Units Level 2 Research',
+            },
+            MK211 = {
+                techid = 211,
+                BuildIconSortPriority = 11,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Health and Regen Naval Units Level 2 Research',
+            },
+            MK212 = {
+                techid = 212,
+                BuildIconSortPriority = 12,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Weapon Naval Units Level 2 Research',
+            },
+            MK213 = {
+                techid = 213,
+                BuildIconSortPriority = 13,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Weapon Turret Units Level 2 Research',
+            },
+            MK214 = {
+                techid = 214,
+                BuildIconSortPriority = 14,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH2'},
+                Description = 'Health Turret Units Level 2 Research',
+            },
+            MK301 = {
+                techid = 301,
+                BuildIconSortPriority = 1,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Structure Units Level 3 Research',
+            },
+            MK302 = {
+                techid = 302,
+                BuildIconSortPriority = 2,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Construction Units(engineers) Level 3 Research',
+            },            
+            MK303 = {
+                techid = 303,
+                BuildIconSortPriority = 3,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Hive Units Level 3 Research',
+            },
+            MK304 = {
+                techid = 304,
+                BuildIconSortPriority = 4,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Mobile(Walking, Land, Hovers) Land Units Level 3 Research',
+            },
+            MK305 = {
+                techid = 305,
+                BuildIconSortPriority = 5,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Health and Regen(Walking, Land, Hovers) Land Units Level 3 Research',
+            },
+            MK306 = {
+                techid = 306,
+                BuildIconSortPriority = 6,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Weapon(Walking, Land, Hovers) Land Units Level 3 Research',
+            },
+            MK307 = {
+                techid = 307,
+                BuildIconSortPriority = 7,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Mobile Air Units Level 3 Research',
+            },
+            MK308 = {
+                techid = 308,
+                BuildIconSortPriority = 8,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Health and Regen Air Units Level 3 Research',
+            },
+            MK309 = {
+                techid = 309,
+                BuildIconSortPriority = 9,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Weapon Air Units Level 3 Research',
+            },
+            MK310 = {
+                techid = 310,
+                BuildIconSortPriority = 10,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Mobile Naval Units Level 3 Research',
+            },
+            MK311 = {
+                techid = 311,
+                BuildIconSortPriority = 11,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Health and Regen Naval Units Level 3 Research',
+            },
+            MK312 = {
+                techid = 312,
+                BuildIconSortPriority = 12,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Weapon Naval Units Level 3 Research',
+            },
+            MK313 = {
+                techid = 313,
+                BuildIconSortPriority = 13,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Weapon Turret Units Level 3 Research',
+            },
+            MK314 = {
+                techid = 314,
+                BuildIconSortPriority = 14,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'TECH3'},
+                Description = 'Health Turret Units Level 3 Research',
+            },
+            -- MK401 = {
+            --     techid = 401,
+            --     BuildIconSortPriority = 1,
+            --     Economy = {
+            --         BuildCostEnergy = 8040,
+            --         BuildCostMass = 960,
+            --         BuildTime = 960,
+            --         ResearchMult = 1,
+            --     },
+            --     Categories = {'EXPERIMENTAL'},
+            --     Description = 'Structure Units Level 4 Research',
+            -- },
+            MK402 = {
+                techid = 402,
+                BuildIconSortPriority = 2,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Construction Units(engineers) Level 4 Research',
+            },            
+            MK403 = {
+                techid = 403,
+                BuildIconSortPriority = 3,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Hive Units Level 4 Research',
+            },
+            MK404 = {
+                techid = 404,
+                BuildIconSortPriority = 4,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Mobile(Walking, Land, Hovers) Land Units Level 4 Research',
+            },
+            MK405 = {
+                techid = 405,
+                BuildIconSortPriority = 5,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Health and Regen(Walking, Land, Hovers) Land Units Level 4 Research',
+            },
+            MK406 = {
+                techid = 406,
+                BuildIconSortPriority = 6,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Weapon(Walking, Land, Hovers) Land Units Level 4 Research',
+            },
+            MK407 = {
+                techid = 407,
+                BuildIconSortPriority = 7,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Mobile Air Units Level 4 Research',
+            },
+            MK408 = {
+                techid = 408,
+                BuildIconSortPriority = 8,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Health and Regen Air Units Level 4 Research',
+            },
+            MK409 = {
+                techid = 409,
+                BuildIconSortPriority = 9,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Weapon Air Units Level 4 Research',
+            },
+            MK410 = {
+                techid = 410,
+                BuildIconSortPriority = 10,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Mobile Naval Units Level 4 Research',
+            },
+            MK411 = {
+                techid = 411,
+                BuildIconSortPriority = 11,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Health and Regen Naval Units Level 4 Research',
+            },
+            MK412 = {
+                techid = 412,
+                BuildIconSortPriority = 12,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Weapon Naval Units Level 4 Research',
+            },
+            MK413 = {
+                techid = 413,
+                BuildIconSortPriority = 13,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Weapon Turret Units Level 4 Research',
+            },
+            MK414 = {
+                techid = 414,
+                BuildIconSortPriority = 14,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Health Turret Units Level 4 Research',
+            },
+            MK501 = {
+                techid = 501,
+                BuildIconSortPriority = 1,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Structure Units Level 5 Research',
+            },
+            MK502 = {
+                techid = 502,
+                BuildIconSortPriority = 2,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Construction Units(engineers) Level 5 Research',
+            },            
+            MK503 = {
+                techid = 503,
+                BuildIconSortPriority = 3,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Hive Units Level 5 Research',
+            },
+            MK504 = {
+                techid = 504,
+                BuildIconSortPriority = 4,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Mobile(Walking, Land, Hovers) Land Units Level 5 Research',
+            },
+            MK505 = {
+                techid = 505,
+                BuildIconSortPriority = 5,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Health and Regen(Walking, Land, Hovers) Land Units Level 5 Research',
+            },
+            MK506 = {
+                techid = 506,
+                BuildIconSortPriority = 6,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Weapon(Walking, Land, Hovers) Land Units Level 5 Research',
+            },
+            MK507 = {
+                techid = 507,
+                BuildIconSortPriority = 7,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Mobile Air Units Level 5 Research',
+            },
+            MK508 = {
+                techid = 508,
+                BuildIconSortPriority = 8,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Health and Regen Air Units Level 5 Research',
+            },
+            MK509 = {
+                techid = 509,
+                BuildIconSortPriority = 9,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Weapon Air Units Level 5 Research',
+            },
+            MK510 = {
+                techid = 410,
+                BuildIconSortPriority = 10,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Mobile Naval Units Level 5 Research',
+            },
+            MK511 = {
+                techid = 511,
+                BuildIconSortPriority = 11,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Health and Regen Naval Units Level 5 Research',
+            },
+            MK512 = {
+                techid = 512,
+                BuildIconSortPriority = 12,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Weapon Naval Units Level 5 Research',
+            },
+            MK513 = {
+                techid = 513,
+                BuildIconSortPriority = 13,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Weapon Turret Units Level 5 Research',
+            },
+            MK514 = {
+                techid = 514,
+                BuildIconSortPriority = 14,
+                Economy = {
+                    BuildCostEnergy = 8040,
+                    BuildCostMass = 960,
+                    BuildTime = 960,
+                    ResearchMult = 1,
+                },
+                Categories = {'EXPERIMENTAL'},
+                Description = 'Health Turret Units Level 5 Research',
             },
         }
         for tech, bp in techresearch do
+        	if bp.techid > 10 then
+                table.insert(bp.Categories, 'MOD')
+            end
+            table.insert(bp.Categories, '')            
+            table.insert(bp.Categories, 'SORTCONSTRUCTION')            
+            if bp.BuildIconSortPriority >=1 and bp.BuildIconSortPriority <=3  then
+            	bp.Categories[4] = 'SORTECONOMY'
+            elseif bp.BuildIconSortPriority > 3 and bp.BuildIconSortPriority <=12 then
+            	bp.Categories[4] = 'SORTSTRATEGIC'
+            elseif bp.BuildIconSortPriority >= 13 and bp.BuildIconSortPriority <= 14 then
+            	bp.Categories[4] = 'SORTDEFENSE'    
+            end               
+            if tech ~= 'RESEARCHLOCKEDTECH1' and bp.techid < 10  then
+                table.insert(bp.Categories,'CONSTRUCTIONSORTDOWN')                                                     
+            end
+
             for faction, uid in {Aeon = 'sar9', UEF = 'ser9', Cybran = 'srr9', Seraphim = 'ssr9'} do
                 local newid = uid .. bp.techid .. '00'
                 local id = tech
-                bp.Categories[2] = string.upper(faction)
-                bp.Categories[3] = 'SORTCONSTRUCTION'
-                if tech ~= 'RESEARCHLOCKEDTECH1' then
-                    bp.Categories[4] = 'CONSTRUCTIONSORTDOWN'
-                end
+                bp.Categories[3] =  string.upper(faction)
+                
+                -- if string.find(tech, 'MK') then
+
+                -- 	table.removeByValue(bp.Categories, 'CONSTRUCTIONSORTDOWN')
+                -- end
+                
                 if not bp.General then
                     bp.General = {}
                 end
                 if not bp.Display then
                     bp.Display = {}
                 end
+                
+                LOG(unpack(bp.Categories))
                 bp.Display.IconName = newid
                 bp.General.FactionName = faction
                 RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
@@ -326,7 +1127,8 @@ function GenerateResearchItemBPs(all_bps)
                 all_bps[newid].Display.BuildMeshBlueprint = '/mods/M&B/meshes/tech'..bp.techid..'_mesh'
                 all_bps[newid].Display.MeshBlueprint = '/mods/M&B/meshes/tech'..bp.techid..'_mesh'
                 -- LOG(repr(all_bps[newid]))
-            end
+            end            
+            
         end
     end
 end
@@ -516,9 +1318,9 @@ end
 function CategoryArrayRemoveTierN(all_bps, table)
     if type(table) == "table" and table[1] and TableFindSubstrings(table, 'BUILTBY', 'TIER') then
         for i, cat in table do
-            if string.find(cat, 'BUILTBY') and string.find(cat, 'TIER') then
+            if string.find(cat, 'BUILTBY') and string.find(cat, 'TIER') and string.find(cat, 'COMMANDER') then
                 DumpOldBuiltByCategories(all_bps, cat)
-                --table[i] = string.gsub(cat, "TIER%d", "")
+                table[i] = string.gsub(cat, "TIER%d", "")
             end
         end
     end

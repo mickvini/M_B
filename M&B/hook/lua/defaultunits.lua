@@ -1,34 +1,37 @@
 local Game = import('/lua/game.lua')
 --local Buff = import('/mods/M&B/hook/lua/sim/Buff.lua')
 --------------------------------------------------------------------------------
-local MK = {
-    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
-    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
-    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
-    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
-    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
-    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
-    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
-    { MK11 = false, MK12 = false, MK13 = false, MK14 = false, MK15 = false, },
-}
+local MK = {  }
+do
+    for i = 1, 8 do
+        table.insert(MK,
+        {{Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0}, {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0},
+         {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0}, {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0},
+         {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0}, {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0},
+         {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0}, {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0},
+         {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0}, {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0},
+         {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0}, {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0},
+         {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0}, {Aeon =0, UEF = 0, Cybran = 0, Seraphim = 0}})
+    end
+end 
 
 
 countingResearchsToUnlockTECH = function(unit, army, tech)        
-    local unitBp = unit:GetBlueprint()
-    MK[army][tech] = true
-    LOG(army)
-    LOG(unpack(MK[army]))              
+    local unitBp = unit:GetBlueprint()   
+    MK[army][tonumber(string.sub(tech, 4 , 6))][unitBp.General.FactionName] = MK[army][tonumber(string.sub(tech, 4 , 6))][unitBp.General.FactionName] + 1    
+    LOG(MK[army][tonumber(string.sub(tech, 4 , 6))][unitBp.General.FactionName])
+     
+    local factions = { Aeon = 'sar9', UEF = 'ser9', Cybran = 'srr9', Seraphim = 'ssr9' }   
+    if (tonumber(string.sub(tech, 3)) + 100) < 515 then
+        RemoveBuildRestriction(army, categories[factions[unitBp.General.FactionName].. (tonumber(string.sub(tech, 3)) + 100) .. '00'])
+    end              
 end
 
 SetMarkLevel = function(self,army, buffName)       
-    local bp = self:GetBlueprint()        
-    --Check for unit buffs    
-    -- Generate a buff based on the data paseed in    
+    local bp = self:GetBlueprint()       
     if bp then        
         Buff.ApplyBuff(self ,  buffName)                       
-    end    
-    LOG(self:GetBlueprint().Defense.Health)
-    LOG(self:GetBlueprint().Economy.BuildRate)        
+    end      
 end
 
 
@@ -38,14 +41,27 @@ end
 local oldStructureUint = StructureUnit
 local oldConstructionUnit = ConstructionUnit
 local oldWalkingLandUnit = WalkingLandUnit
+local oldSubUnit = SubUnit
+local oldAirUnit = AirUnit
+local oldSeaUnit = SeaUnit
 StructureUnit = Class(oldStructureUint) {
 
     OnStopBeingBuilt = function(self, builder, layer)
         oldStructureUint.OnStopBeingBuilt(self,builder,layer)
-        local army = self:GetArmy()    
-        LOG(MK[army]['MK11'])
-        if MK[army]['MK11'] == true then
-            SetMarkLevel(self, army, 'StructureHealthMod')
+        local army = self:GetArmy() 
+        local unitBp = self:GetBlueprint()
+        local factionCat = unitBp.General.FactionName        
+        if MK[army][1][factionCat] > 0 and not table.find(unitBp.Categories, 'DEFENSE') and not table.find(unitBp.Categories, 'ENGINEERSTATION') then
+            SetMarkLevel(self, army, 'StructureHealthMod' .. MK[army][1][factionCat])
+        end
+        if MK[army][3][factionCat] > 0 and table.find(unitBp.Categories, 'ENGINEERSTATION') then
+            SetMarkLevel(self, army, 'EngineerStationMod' .. MK[army][3][factionCat])
+        end
+        if MK[army][13][factionCat] > 0 and table.find(unitBp.Categories, 'DEFENSE') then
+            SetMarkLevel(self, army, 'WeaponBuffTurret' .. MK[army][13][factionCat])
+        end
+        if MK[army][14][factionCat] > 0 and table.find(unitBp.Categories, 'DEFENSE') then
+            SetMarkLevel(self, army, 'HealthBuffTurret' .. MK[army][14][factionCat])
         end
     end,
 
@@ -54,9 +70,19 @@ ConstructionUnit = Class(oldConstructionUnit){
     OnStopBeingBuilt = function(self, builder, layer)
         oldConstructionUnit.OnStopBeingBuilt(self,builder,layer)
         local army = self:GetArmy()    
-        LOG(MK[army]['MK12'])
-        if MK[army]['MK12'] == true then
-            SetMarkLevel(self, army, 'ConstrctionBotMod')
+        local unitBp = self:GetBlueprint()
+        local factionCat = unitBp.General.FactionName
+        if MK[army][2][factionCat] > 0 then
+            SetMarkLevel(self, army, 'ConstrctionBotMod' .. MK[army][2][factionCat])
+        end
+    end,
+    OnCreate = function(self)
+        oldConstructionUnit.OnCreate(self)
+        local army = self:GetArmy()    
+        local unitBp = self:GetBlueprint()
+        local factionCat = unitBp.General.FactionName
+        if MK[army][3][factionCat] > 0  and table.find(unitBp.Categories, 'STATIONASSISTPOD') then
+            SetMarkLevel(self, army, 'EngineerStationMod' .. MK[army][3][factionCat])
         end
     end,
 }
@@ -64,16 +90,16 @@ ConstructionUnit = Class(oldConstructionUnit){
 WalkingLandUnit = Class(oldWalkingLandUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         oldWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
-        local army = self:GetArmy()    
-        LOG(MK[army]['MK13'])
-        if MK[army]['MK13'] == true then
-            SetMarkLevel(self, army, 'MobileBuffLand')
+        local army = self:GetArmy()   
+        local factionCat = self:GetBlueprint().General.FactionName
+        if MK[army][4][factionCat] > 0 then
+            SetMarkLevel(self, army, 'MobileBuffLand' .. MK[army][4][factionCat])
         end
-        if MK[army]['MK14'] == true then
-            SetMarkLevel(self, army, 'HealthBuffLand')
-        end
-        if MK[army]['MK15'] == true then
-            SetMarkLevel(self, army, 'WeaponBuffLand')
+        if MK[army][5][factionCat] > 0 then
+            SetMarkLevel(self, army, 'HealthBuffLand' .. MK[army][5][factionCat])
+        end        
+        if MK[army][6][factionCat] > 0 then
+            SetMarkLevel(self, army, 'WeaponBuffLand' .. MK[army][6][factionCat])
         end
     end,
 }
@@ -82,15 +108,15 @@ LandUnit = Class(MobileUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         MobileUnit.OnStopBeingBuilt(self, builder, layer)
         local army = self:GetArmy()    
-        LOG(MK[army]['MK13'])
-        if MK[army]['MK13'] == true then
-            SetMarkLevel(self, army, 'MobileBuffLand')
+        local factionCat = self:GetBlueprint().General.FactionName
+        if MK[army][4][factionCat] > 0 then
+            SetMarkLevel(self, army, 'MobileBuffLand' .. MK[army][4][factionCat])
         end
-        if MK[army]['MK14'] == true then
-            SetMarkLevel(self, army, 'HealthBuffLand')
+        if MK[army][5][factionCat] > 0 then
+            SetMarkLevel(self, army, 'HealthBuffLand' .. MK[army][5][factionCat])
         end        
-        if MK[army]['MK15'] == true then
-            SetMarkLevel(self, army, 'WeaponBuffLand')
+        if MK[army][6][factionCat] > 0 then
+            SetMarkLevel(self, army, 'WeaponBuffLand' .. MK[army][6][factionCat])
         end
     end,
 }
@@ -99,16 +125,67 @@ HoverLandUnit = Class(MobileUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         MobileUnit.OnStopBeingBuilt(self, builder, layer)
         local army = self:GetArmy()    
-        LOG(MK[army]['MK13'])
-        if MK[army]['MK13'] == true then
-            SetMarkLevel(self, army, 'MobileBuffLand')
+        local factionCat = self:GetBlueprint().General.FactionName
+        if MK[army][4][factionCat] > 0 then
+            SetMarkLevel(self, army, 'MobileBuffLand' .. MK[army][4][factionCat])
         end
-        if MK[army]['MK14'] == true then
-            SetMarkLevel(self, army, 'HealthBuffLand')
-        end  
-        if MK[army]['MK15'] == true then
-            SetMarkLevel(self, army, 'WeaponBuffLand')
-        end      
+        if MK[army][5][factionCat] > 0 then
+            SetMarkLevel(self, army, 'HealthBuffLand' .. MK[army][5][factionCat])
+        end        
+        if MK[army][6][factionCat] > 0 then
+            SetMarkLevel(self, army, 'WeaponBuffLand' .. MK[army][6][factionCat])
+        end
+    end,
+}
+
+AirUnit = Class(oldAirUnit) {
+    OnStopBeingBuilt = function(self, builder, layer)
+        oldAirUnit.OnStopBeingBuilt(self, builder, layer)
+        local army = self:GetArmy() 
+        local factionCat = self:GetBlueprint().General.FactionName
+        if MK[army][7][factionCat] > 0 then
+            SetMarkLevel(self, army, 'MobileBuffAir' .. MK[army][7][factionCat])
+        end
+        if MK[army][8][factionCat] > 0 then
+            SetMarkLevel(self, army, 'HealthBuffAir' .. MK[army][8][factionCat])
+        end        
+        if MK[army][9][factionCat] > 0 then
+            SetMarkLevel(self, army, 'WeaponBuffAir' .. MK[army][9][factionCat])
+        end
+    end,
+}
+
+SeaUnit = Class(oldSeaUnit) {
+    OnStopBeingBuilt = function(self, builder, layer)
+        oldSeaUnit.OnStopBeingBuilt(self, builder, layer)
+        local army = self:GetArmy()    
+        local factionCat = self:GetBlueprint().General.FactionName
+        if MK[army][10][factionCat] > 0 then
+            SetMarkLevel(self, army, 'MobileBuffNaval' .. MK[army][10][factionCat])
+        end
+        if MK[army][11][factionCat] > 0 then
+            SetMarkLevel(self, army, 'HealthBuffNaval' .. MK[army][11][factionCat])
+        end        
+        if MK[army][12][factionCat] > 0 then
+            SetMarkLevel(self, army, 'WeaponBuffNaval' .. MK[army][12][factionCat])
+        end
+    end,
+}
+
+SubUnit = Class(oldSubUnit) {
+    OnStopBeingBuilt = function(self, builder, layer)
+        oldSubUnit.OnStopBeingBuilt(self, builder, layer)
+        local army = self:GetArmy() 
+        local factionCat = self:GetBlueprint().General.FactionName
+        if MK[army][10][factionCat] > 0 then
+            SetMarkLevel(self, army, 'MobileBuffNaval' .. MK[army][10][factionCat])
+        end
+        if MK[army][11][factionCat] > 0 then
+            SetMarkLevel(self, army, 'HealthBuffNaval' .. MK[army][11][factionCat])
+        end        
+        if MK[army][12][factionCat] > 0 then
+            SetMarkLevel(self, army, 'WeaponBuffNaval' .. MK[army][12][factionCat])
+        end
     end,
 }
     
@@ -124,30 +201,28 @@ ResearchItem = Class(DummyUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         local bp = self:GetBlueprint()
         local army = self:GetArmy()
+        factionCat = categories[string.upper(bp.General.FactionName or 'SELECTABLE')]
         -- Enable what we were supposed to allow.
-        if bp.ResearchId == string.lower(bp.ResearchId) then -- This won't work for any units without letters in the ID.
+        if bp.ResearchId == string.lower(bp.ResearchId) then --This wont work for any units without letters in the ID.
             if self:CheckBuildRestrictionsAllow(bp.ResearchId) then
-                RemoveBuildRestriction(army, categories[bp.ResearchId])
+                RemoveBuildRestriction(army, categories[bp.ResearchId] - categories.MOD)
             else
-                WARN("R&D: Research item for " .. bp.ResearchId .. " was just completed, however lobby restrictions forbid it. Item shouldn't have been researchable.")
+                WARN("Research item for " .. bp.ResearchId .. " was just completed, however lobby restrictions forbid it. Item shouldn't have been researchable.")
             end
-        else -- else we are a category, not a unitID             
-            -- Unlock the next tech research as well
-            if bp.ResearchId == 'RESEARCHLOCKEDTECH1' then
-                RemoveBuildRestriction(self:GetArmy(), categories.TECH2 * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
-            elseif bp.ResearchId == 'TECH2' then
-                RemoveBuildRestriction(self:GetArmy(), categories.TECH3 * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
-            elseif bp.ResearchId == 'TECH3' then
-                RemoveBuildRestriction(self:GetArmy(), categories.EXPERIMENTAL * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
-            elseif string.find(bp.ResearchId, 'MK') then
-                countingResearchsToUnlockTECH(self, army, bp.ResearchId )           
-            else
-                RemoveBuildRestriction(army, 
-                (categories[bp.ResearchId] * -- E.G. TECH2
-                categories[string.upper(bp.General.FactionName or 'SELECTABLE')]) - -- For this army's faction only
-                categories.RESEARCHLOCKED - categories[bp.BlueprintId] - (self:BuildRestrictionCategories()))
-            end
+        elseif bp.ResearchId == 'RESEARCHLOCKEDTECH1' then
+            RemoveBuildRestriction(army, categories.TECH2 * factionCat * categories.CONSTRUCTIONSORTDOWN - categories.MOD - (self:BuildRestrictionCategories()) )
+        elseif bp.ResearchId == 'TECH2' then
+            RemoveBuildRestriction(army, categories.TECH3 * factionCat * categories.CONSTRUCTIONSORTDOWN - categories.MOD - (self:BuildRestrictionCategories()) )
+        elseif bp.ResearchId == 'TECH3' then
+            RemoveBuildRestriction(army, categories.EXPERIMENTAL * factionCat * categories.CONSTRUCTIONSORTDOWN - categories.BUILTBYRESEARCH * categories.MOD - (self:BuildRestrictionCategories()) )
+        elseif string.find(bp.ResearchId, 'MK') then
+            countingResearchsToUnlockTECH(self, army, bp.ResearchId)            
         end
+        if not string.find(bp.ResearchId, 'MK') then
+            RemoveBuildRestriction(army, categories[bp.ResearchId] * factionCat - categories.BUILTBYRESEARCH - categories.CONSTRUCTIONSORTDOWN - categories.RESEARCHLOCKED - categories.MOD - categories[bp.BlueprintId] - (self:BuildRestrictionCategories()) )
+        end
+            --Unlock the next tech research as well.
+        
 
         -- Tell the manager this is done if we're an AI and presumably have a manager.
        
@@ -241,7 +316,7 @@ ResearchFactoryUnit = Class(FactoryUnit) {
         FactoryUnit.OnPreCreate(self)
         if not self.BpId then
             self.BpId = self:GetBlueprint().BlueprintId
-        end
+        end        
     end,
 
     OnStartBeingBuilt = function(self, creator, layer)

@@ -121,7 +121,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             for i = 1, unit:GetWeaponCount() do
         
                 local wep = unit:GetWeapon(i)
-                if wep.Label != 'DeathWeapon' and wep.Label != 'DeathImpact' then
+                if wep.Label ~= 'DeathWeapon' and wep.Label ~= 'DeathImpact' then
                     local wepbp = wep:GetBlueprint()
                     local wepdam = wepbp.Damage
                     local val = BuffCalculate(unit, buffName, 'Damage', wepdam)
@@ -144,16 +144,15 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 local wep = unit:GetWeapon(i)
                 local wepbp = wep:GetBlueprint()
                 local weprad = wepbp.DamageRadius
-                local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
-                LOG(wep)
+                local val = math.ceil(BuffCalculate(unit, buffName, 'DamageRadius', weprad))
+                                LOG(wep)
                 LOG(wepbp)
                 LOG(weprad)
                 LOG(val)
                 if weprad ~= 0 then
-                    wep:SetDamageRadius(tonumber(val))
-                else
-                    return
-                end                
+                    wep:ChangeDamageRadius(val)                
+                end       
+                LOG(val)         
                 #LOG('*BUFF: Unit ', repr(unit:GetEntityId()), ' buffed damage radius to ', repr(val))
             end
 
@@ -177,7 +176,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             
             unit:SetSpeedMult(val)
             unit:SetAccMult(val)
-            unit:SetTurnMult(val)
+            unit:SetTurnMult(val)            
             
             #LOG('*BUFF: Unit ', repr(unit:GetEntityId()), ' buffed speed/accel/turn mult to ', repr(val))
         

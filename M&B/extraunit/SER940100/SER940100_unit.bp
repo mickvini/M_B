@@ -1,0 +1,69 @@
+UnitBlueprint {    
+    ResearchId = 'MK401',       
+    Categories = {
+        'UEF',
+        'BUILTBYRESEARCH',
+        -- Engine stuff?
+        'VISIBLETORECON',
+        'BENIGN',
+        -- And now some lies.
+        'SELECTABLE',
+        --'MOBILE',
+        'EXPERIMENTAL',
+        'SORTECONOMY',
+        'CONSTRUCTIONSORTDOWN',
+        'MOD',
+    },
+    Defense = {
+        ArmorType = 'Normal',
+         Health = 5000,
+        MaxHealth = 5000,
+    },
+    Description = 'Structure Units Level 4 Research',
+    Display = {
+    Abilities = {
+        '<LOC ability_rnd_unlock>Research Unlock',
+    },
+            --IconName = id,
+    UniformScale =  0.2, --calculate properly based on footprint size
+    },
+    Footprint = {
+        SizeX = 2,
+        SizeZ = 2,
+    },
+    BuildIconSortPriority = 0,
+    Economy = {
+        BuildCostEnergy = 8040,
+        BuildCostMass = 960,
+        BuildTime = 960,
+        ResearchMult = 1,
+    },
+    Interface = {
+        HelpText ='',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.25,
+    LifeBarSize = 2.5,
+    General = {
+        CapCost = 0,
+        FactionName = 'UEF',
+        Icon = 'air',
+        TechLevel = 'RULEUTL_Advanced',
+        UnitName = 'MK401',
+        UnitWeight = 1,
+    },
+    Physics = {
+        MeshExtentsX = 2,
+        MeshExtentsY = 2,
+        MeshExtentsZ = 2,
+        --And now some more lies.
+        MaxSpeed = 1,
+        MotionType = 'RULEUMT_Amphibious',
+    },    
+    ScriptClass = 'ResearchItem',
+    ScriptModule = '/lua/defaultunits.lua',
+    SizeX = 2,
+    SizeY = 2,
+    SizeZ = 2,        
+    StrategicIconName = 'ser940100',
+}
