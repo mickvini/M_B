@@ -1,5 +1,5 @@
 UnitBlueprint {
-    Merge = true,        -- Merge = true  leaves the original file intact and only modifies what you change
+    Merge = true,
     Adjacency = 'T1MassFabricatorAdjacencyBuffs',
     Audio = {
         ActiveLoop = Sound {
@@ -42,15 +42,14 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTECONOMY',
-				
     },
     CollisionOffsetY = 0,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 1,
-        Health = 525,
-        MaxHealth = 525,
+        Health = 360,
+        MaxHealth = 360,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -97,14 +96,11 @@ UnitBlueprint {
         UniformScale = 0.095,
     },
     Economy = {
-        BuildCostEnergy = 260,
-        BuildCostMass = 300,
-        BuildTime = 2600,
-        MaintenanceConsumptionPerSecondEnergy = 200,
-        ProductionPerSecondMass = 0.5,
-        ResearchMultTime = 10,
-        ResearchMultEnergy = 10,
-        ResearchMultMass = 0.25,
+        BuildCostEnergy = 4000,
+        BuildCostMass = 100,
+        BuildTime = 500,
+        MaintenanceConsumptionPerSecondEnergy = 150,
+        ProductionPerSecondMass = 1,
         RebuildBonusIds = {
             'ueb1104',
         },
@@ -177,9 +173,9 @@ UnitBlueprint {
     StrategicIconSortPriority = 250,
     Weapon = {
         {
-            Damage = 500,
+            Damage = 370,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 5,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

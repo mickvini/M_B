@@ -1,5 +1,5 @@
 UnitBlueprint {
-    Merge = true,        -- Merge = true  leaves the original file intact and only modifies what you change
+    Merge = true,
     Adjacency = 'T2PowerGeneratorAdjacencyBuffs',
     Audio = {
         ActiveLoop = Sound {
@@ -34,23 +34,21 @@ UnitBlueprint {
         'CYBRAN',
         'STRUCTURE',
         'ECONOMIC',
-        'TECH2',        
-        
+        'TECH2',
         'ENERGYPRODUCTION',
         'DRAGBUILD',
         'SIZE12',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SORTECONOMY',	
-        
+        'SORTECONOMY',
     },
     CollisionOffsetY = 0,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 16,
-        Health = 2800,
-        MaxHealth = 2800,
+        Health = 2160,
+        MaxHealth = 2160,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -118,12 +116,9 @@ UnitBlueprint {
     },
     Economy = {
         AdjacentStructureEnergyMod = -4,
-        BuildCostEnergy = 30000,
-        BuildCostMass = 2037,
-        BuildTime = 40750,
-        ResearchMultTime = 5,
-        ResearchMultEnergy = 20,
-        ResearchMultMass = 0.25,			
+        BuildCostEnergy = 12000,
+        BuildCostMass = 1200,
+        BuildTime = 2000,
         ProductionPerSecondEnergy = 500,
         RebuildBonusIds = {
             'urb1201',
@@ -196,9 +191,9 @@ UnitBlueprint {
     StrategicIconSortPriority = 245,
     Weapon = {
         {
-            Damage = 5500,
+            Damage = 1500,
             DamageFriendly = true,
-            DamageRadius = 7.5,
+            DamageRadius = 5,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

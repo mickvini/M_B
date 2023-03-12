@@ -134,7 +134,7 @@ UnitBlueprint {
         UniformScale = 0.06,
     },
     Economy = {
-        AdjacentStructureEnergyMod = -4,
+        AdjacentStructureEnergyMod = -2,
         BuildCostEnergy = 750,
         BuildCostMass = 75,
         BuildTime = 125,

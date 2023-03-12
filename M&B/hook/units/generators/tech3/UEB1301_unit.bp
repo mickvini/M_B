@@ -1,5 +1,5 @@
 UnitBlueprint {
-    Merge = true,        -- Merge = true  leaves the original file intact and only modifies what you change
+    Merge = true,
     AI = {
         TargetBones = {
             'Target01',
@@ -45,22 +45,21 @@ UnitBlueprint {
         'UEF',
         'STRUCTURE',
         'ECONOMIC',
-        'TECH3',        
-        
+        'TECH3',
         'ENERGYPRODUCTION',
         'DRAGBUILD',
         'SIZE16',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SORTECONOMY',	
+        'SORTECONOMY',
     },
     CollisionOffsetY = 0,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 56,
-        Health = 9000,
-        MaxHealth = 9000,
+        Health = 9720,
+        MaxHealth = 9720,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -170,12 +169,9 @@ UnitBlueprint {
     },
     Economy = {
         AdjacentStructureEnergyMod = -5,
-        BuildCostEnergy = 150000,
-        BuildCostMass = 20500,
-        BuildTime = 118500,
-        ResearchMultTime = 5,
-        ResearchMultEnergy = 20,
-        ResearchMultMass = 0.25,			
+        BuildCostEnergy = 57600,
+        BuildCostMass = 3240,
+        BuildTime = 5400,
         ProductionPerSecondEnergy = 2500,
         RebuildBonusIds = {
             'ueb1301',
@@ -248,7 +244,7 @@ UnitBlueprint {
     StrategicIconSortPriority = 240,
     Weapon = {
         {
-            Damage = 11500,
+            Damage = 8000,
             DamageFriendly = true,
             DamageRadius = 10,
             DamageType = 'Normal',

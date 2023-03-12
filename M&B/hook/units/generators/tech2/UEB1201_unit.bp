@@ -1,5 +1,5 @@
 UnitBlueprint {
-    Merge = true,        -- Merge = true  leaves the original file intact and only modifies what you change
+    Merge = true,
     Adjacency = 'T2PowerGeneratorAdjacencyBuffs',
     Audio = {
         ActiveLoop = Sound {
@@ -38,23 +38,21 @@ UnitBlueprint {
         'UEF',
         'STRUCTURE',
         'ECONOMIC',
-        'TECH2',        
-        
+        'TECH2',
         'ENERGYPRODUCTION',
         'DRAGBUILD',
         'SIZE12',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SORTECONOMY',	
-        
+        'SORTECONOMY',
     },
     CollisionOffsetY = 0,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 16,
-        Health = 3000,
-        MaxHealth = 3000,
+        Health = 2160,
+        MaxHealth = 2160,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -98,7 +96,7 @@ UnitBlueprint {
                     ShaderName = 'Unit',
                 },
                 {
-                    AlbedoName = 'ueb1201_lod1_albedo.dds',
+                    AlbedoName = 'units/ueb1201/ueb1201_lod1_albedo.dds',
                     LODCutoff = 300,
                     ShaderName = 'Unit',
                     SpecularName = 'ueb1201_lod1_specteam.dds',
@@ -128,12 +126,9 @@ UnitBlueprint {
     },
     Economy = {
         AdjacentStructureEnergyMod = -4,
-        BuildCostEnergy = 30000,
-        BuildCostMass = 2050,
-        BuildTime = 41000,
-        ResearchMultTime = 5,
-        ResearchMultEnergy = 20,
-        ResearchMultMass = 0.25,			
+        BuildCostEnergy = 12000,
+        BuildCostMass = 1200,
+        BuildTime = 2000,
         ProductionPerSecondEnergy = 500,
         RebuildBonusIds = {
             'ueb1201',
@@ -210,9 +205,9 @@ UnitBlueprint {
     StrategicIconSortPriority = 245,
     Weapon = {
         {
-            Damage = 5500,
+            Damage = 1500,
             DamageFriendly = true,
-            DamageRadius = 7.5,
+            DamageRadius = 5,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

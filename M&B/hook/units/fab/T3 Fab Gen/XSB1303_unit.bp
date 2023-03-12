@@ -1,5 +1,5 @@
 UnitBlueprint {
-    Merge = true,        -- Merge = true  leaves the original file intact and only modifies what you change
+    Merge = true,
     Adjacency = 'T3MassFabricatorAdjacencyBuffs',
     Audio = {
         ActiveLoop = Sound {
@@ -37,7 +37,7 @@ UnitBlueprint {
         'SERAPHIM',
         'STRUCTURE',
         'ECONOMIC',
-        'TECH2',
+        'TECH3',
         'MASSPRODUCTION',
         'MASSFABRICATION',
         'DRAGBUILD',
@@ -51,8 +51,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 39,
-        Health = 4100,
-        MaxHealth = 4100,
+        Health = 6000,
+        MaxHealth = 6000,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -150,14 +150,11 @@ UnitBlueprint {
         UniformScale = 0.047,
     },
     Economy = {
-        BuildCostEnergy = 8100,
-        BuildCostMass = 1500,
-        BuildTime = 27000,
-        MaintenanceConsumptionPerSecondEnergy = 1000,
-        ProductionPerSecondMass = 2.5,
-	    ResearchMultTime = 10,
-        ResearchMultEnergy = 10,
-        ResearchMultMass = 0.25,
+        BuildCostEnergy = 65000,
+        BuildCostMass = 3000,
+        BuildTime = 3750,
+        MaintenanceConsumptionPerSecondEnergy = 3500,
+        ProductionPerSecondMass = 12,
         RebuildBonusIds = {
             'xsb1303',
         },
@@ -238,9 +235,9 @@ UnitBlueprint {
     StrategicIconSortPriority = 240,
     Weapon = {
         {
-            Damage = 6000,
+            Damage = 5000,
             DamageFriendly = true,
-            DamageRadius = 6.5,
+            DamageRadius = 14,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

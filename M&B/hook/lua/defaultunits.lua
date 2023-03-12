@@ -1,7 +1,7 @@
 local Game = import('/lua/game.lua')
 --local Buff = import('/mods/M&B/hook/lua/sim/Buff.lua')
 --------------------------------------------------------------------------------
-local MK = {  }
+MK = {  }
 do
     for i = 1, 8 do
         table.insert(MK,
@@ -33,20 +33,17 @@ countingResearchsToUnlockTECH = function(unit, army, tech)
             if IsAlly(army, units:GetArmy()) then
                 local unitsBp = units:GetBlueprint()
                 local factionCat = unitsBp.General.FactionName
-                if not table.find(unitsBp.Categories, 'COMMAND') and table.find(unitsBp.Categories, 'STRUCTURE') then
+                if table.find(unitsBp.Categories, 'STRUCTURE') then
                     if MK[army][1][factionCat] > 0 and not table.find(unitsBp.Categories, 'DEFENSE') and not table.find(unitsBp.Categories, 'ARTILLERY') and not table.find(unitsBp.Categories, 'ENGINEERSTATION') then
                         SetMarkLevel(units, 'StructureHealthMod' .. MK[army][1][factionCat])
-                    end
-                    if MK[army][2][factionCat] > 0 and table.find(unitsBp.Categories, 'ENGINEER') and not table.find(unitsBp.Categories, 'ENGINEERSTATION') and not table.find(unitsBp.Categories, 'STATIONASSISTPOD')then
-                        SetMarkLevel(units, 'ConstrctionBotMod' .. MK[army][2][factionCat])
-                    end
+                    end                    
                     if MK[army][3][factionCat] > 0  and table.find(unitsBp.Categories, 'STATIONASSISTPOD') or table.find(unitsBp.Categories, 'ENGINEERSTATION') then
                         SetMarkLevel(units, 'EngineerStationMod' .. MK[army][3][factionCat])
                     end
                     if MK[army][13][factionCat] > 0 and table.find(unitsBp.Categories, 'DEFENSE') or table.find(unitsBp.Categories, 'ARTILLERY') then
                         SetMarkLevel(units, 'WeaponBuffTurret' .. MK[army][13][factionCat])
                     end
-                    if MK[army][14][factionCat] > 0 and table.find(unitsBp.Categories, 'DEFENSE') then
+                    if MK[army][14][factionCat] > 0 and table.find(unitsBp.Categories, 'DEFENSE') or table.find(unitsBp.Categories, 'ARTILLERY')  then
                         SetMarkLevel(units, 'HealthBuffTurret' .. MK[army][14][factionCat])
                     end                    
                 end
