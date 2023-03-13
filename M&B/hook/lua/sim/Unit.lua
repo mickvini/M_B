@@ -4,10 +4,10 @@ local oldUnit = Unit
 
 Unit = Class(oldUnit) { 
        
-    -- OnCreate = function(self)
-    --     oldUnit.OnCreate(self)
-    --     self.MK = Mark.MK
-    -- end,    
+    OnCreate = function(self)
+        oldUnit.OnCreate(self)
+        self.MarkLevel = {0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+    end,    
     -- OnMotionHorzEventChange = function( self, new, old )
     --     oldUnit.OnMotionHorzEventChange( self, new, old )
     --     local army = self:GetArmy()

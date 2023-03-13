@@ -1125,6 +1125,19 @@ function GenerateResearchItemBPs(all_bps)
                 RNDGiveCategoriesAndDefineCosts(all_bps, newid, bp)
                 all_bps[newid].Display.BuildMeshBlueprint = '/mods/M&B/meshes/tech'..bp.techid..'_mesh'
                 all_bps[newid].Display.MeshBlueprint = '/mods/M&B/meshes/tech'..bp.techid..'_mesh'
+                if bp.tecid > 100  and bp.techid < 200 then
+                    all_bps[newid].Display.BuildMeshBlueprint = '/mods/M&B/meshes/tech'.. 1 ..'_mesh'
+                    all_bps[newid].Display.MeshBlueprint = '/mods/M&B/meshes/tech'.. 1 ..'_mesh'
+                elseif bp.techid>200 and bp.techid < 300  then
+                    all_bps[newid].Display.BuildMeshBlueprint = '/mods/M&B/meshes/tech'.. 2 ..'_mesh'
+                    all_bps[newid].Display.MeshBlueprint = '/mods/M&B/meshes/tech'.. 2 ..'_mesh'
+                elseif bp.techid>300 and bp.techid < 400  then
+                    all_bps[newid].Display.BuildMeshBlueprint = '/mods/M&B/meshes/tech'.. 3 ..'_mesh'
+                    all_bps[newid].Display.MeshBlueprint = '/mods/M&B/meshes/tech'.. 3 ..'_mesh'
+                else
+                    all_bps[newid].Display.BuildMeshBlueprint = '/mods/M&B/meshes/tech'.. 4 ..'_mesh'
+                    all_bps[newid].Display.MeshBlueprint = '/mods/M&B/meshes/tech'.. 4 ..'_mesh'
+                end
                 -- LOG(repr(all_bps[newid]))
             end            
             
